@@ -1,5 +1,8 @@
 import 'package:easycook_flutter/ui/screens/agregar_receta.dart';
+import 'package:easycook_flutter/ui/screens/editar_perfil.dart';
+import 'package:easycook_flutter/ui/screens/editar_receta.dart';
 import 'package:easycook_flutter/ui/screens/home_screen.dart';
+import 'package:easycook_flutter/ui/screens/perfil_setting.dart';
 import 'package:easycook_flutter/ui/screens/recetas.dart';
 import 'package:easycook_flutter/ui/screens/usuarios_lista.dart';
 import 'package:flutter/material.dart';
@@ -40,11 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'EasyCook',
       initialRoute: '/',
       routes: {
-        '/': (context) => const UsuariosLista(),
-        //'/login': (context) => const LoginScreen(),
-        //'/register': (context) => const RegisterScreen(),
-        //'/HomeScreen': (context) => const HomeScreen(),
-        //'/ProfileScreen': (context) => const ProfileScreen()
+        '/': (context) => const PerfilSetting(),
+        //'/EditarReceta': (context) => const EditarReceta(),
+        //'/PerfilSetting': (context) => const PerfilSetting(),
       },
     );
   }

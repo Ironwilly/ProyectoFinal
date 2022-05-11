@@ -1,14 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class EditarPerfil extends StatefulWidget {
-  const EditarPerfil({Key? key}) : super(key: key);
+class PerfilSetting extends StatefulWidget {
+  const PerfilSetting({Key? key}) : super(key: key);
 
   @override
-  State<EditarPerfil> createState() => _EditarPerfilState();
+  State<PerfilSetting> createState() => _PerfilSettingState();
 }
 
-class _EditarPerfilState extends State<EditarPerfil> {
+class _PerfilSettingState extends State<PerfilSetting> {
   // donde te lleva o lo que sale al pulsar cada botón del menú inferior
   int _selectedIndex = 3;
   static const TextStyle optionStyle =

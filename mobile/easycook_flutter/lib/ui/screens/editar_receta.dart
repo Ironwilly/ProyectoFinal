@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class EditarReceta extends StatefulWidget {
@@ -110,150 +111,75 @@ class _EditarRecetaState extends State<EditarReceta> {
                 shrinkWrap: true,
                 children: <Widget>[
                   Container(
-                    width: 300,
-                    height: 40,
-                    margin: const EdgeInsets.only(top: 20),
-                    color: Colors.white,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Nombre',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: 300,
-                    height: 40,
-                    margin: const EdgeInsets.only(top: 20),
-                    color: Colors.white,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Apellidos',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: 300,
-                    height: 40,
-                    margin: const EdgeInsets.only(top: 20),
-                    color: Colors.white,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Usuario',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: 300,
-                    height: 40,
-                    margin: const EdgeInsets.only(top: 20),
-                    color: Colors.white,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Ciudad/Pueblo',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: 300,
-                    height: 40,
-                    margin: const EdgeInsets.only(top: 20),
-                    color: Colors.white,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        fillColor: Colors.white,
-                        hintText: 'Contraseña',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    width: 300,
-                    height: 40,
-                    margin: EdgeInsets.only(top: 20),
-                    color: Colors.white,
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        fillColor: Colors.white,
-                        hintText: 'Confirmar contraseña',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(
+                        left: 5, right: 30, top: 20, bottom: 10),
                     child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            Text('Avatar   '),
-                          ],
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const <Widget>[
+                        AutoSizeText(
+                          "Agrega una foto ",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20.0),
+                          maxLines: 1,
                         ),
-                        Column(
-                          children: [
-                            Icon(
-                              Icons.account_circle_outlined,
-                              color: Color.fromRGBO(0, 0, 0, 1),
-                              size: 20,
-                            ),
-                          ],
+                        Icon(
+                          Icons.camera_alt_outlined,
+                          color: Color.fromRGBO(0, 0, 0, 1),
+                          size: 40,
                         ),
-                        Column(
-                          children: [
-                            Text(
-                                '                                             Imagen/Fondo')
-                          ],
-                        )
                       ],
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(
-                        left: 25, right: 25, top: 30, bottom: 15),
-                    width: 200,
-                    height: 40,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)),
-                        elevation: 5,
-                        primary: Color.fromRGBO(27, 125, 255, 1),
+                    margin: const EdgeInsets.only(
+                        left: 1, right: 1, top: 10, bottom: 30),
+                    width: MediaQuery.of(context).size.width,
+                    height: 130,
+                    child: const SizedBox(
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Agrega los ingredientes',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(vertical: 50)),
+                        style: TextStyle(fontSize: 20),
+                        maxLines: 2,
+                        minLines: 1,
                       ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 1, right: 1),
+                    width: MediaQuery.of(context).size.width,
+                    height: 230,
+                    child: const SizedBox(
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Modo de preparación',
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.symmetric(vertical: 80)),
+                        style: TextStyle(fontSize: 20),
+                        maxLines: 4,
+                        minLines: 1,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: 25, right: 25, top: 2, bottom: 20),
+                    width: 200,
+                    height: 50,
+                    child: ElevatedButton(
                       onPressed: () {},
-                      child: const Text('Guardar'),
+                      style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          primary: Color.fromRGBO(27, 125, 255, 1),
+                          onPrimary: Color.fromRGBO(255, 255, 255, 1),
+                          elevation: 5,
+                          shadowColor: Color.fromRGBO(0, 0, 0, 1),
+                          side: BorderSide(
+                              color: Color.fromRGBO(0, 0, 0, 0.3), width: 1)),
+                      child:
+                          const Text('Guardar', style: TextStyle(fontSize: 25)),
                     ),
                   ),
                 ]),

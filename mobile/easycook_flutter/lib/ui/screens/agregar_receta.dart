@@ -71,8 +71,8 @@ class _AgregarReceta extends State<AgregarReceta> {
                   maxLines: 1,
                 ),
                 Icon(
-                  Icons.camera_alt_outlined,
-                  color: Color.fromRGBO(0, 0, 0, 1),
+                  Icons.add_a_photo,
+                  color: Color.fromRGBO(0, 0, 0, 0.5),
                   size: 40,
                 ),
               ],

@@ -45,6 +45,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -103,46 +104,160 @@ class _EditarPerfilState extends State<EditarPerfil> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(left: 25, right: 25, top: 100),
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  primary: Color.fromRGBO(27, 125, 255, 1),
-                  onPrimary: Color.fromRGBO(0, 0, 0, 1),
-                  elevation: 5,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 1),
-                  side: BorderSide(
-                      color: Color.fromRGBO(0, 0, 0, 0.3), width: 1)),
-              child: const Text(
-                'Editar perfil',
-                style: TextStyle(
-                    fontSize: 25, color: Color.fromRGBO(255, 255, 255, 1)),
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 25, right: 25, top: 70),
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  primary: Color.fromRGBO(27, 125, 255, 1),
-                  onPrimary: Color.fromRGBO(0, 0, 0, 1),
-                  elevation: 5,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 1),
-                  side: BorderSide(
-                      color: Color.fromRGBO(0, 0, 0, 0.3), width: 1)),
-              child: const Text(
-                'Editar receta por nombre',
-                style: TextStyle(
-                    fontSize: 25, color: Color.fromRGBO(255, 255, 255, 1)),
-              ),
-            ),
+            height: 398,
+            child: ListView(
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                children: <Widget>[
+                  Container(
+                    width: 300,
+                    height: 40,
+                    margin: const EdgeInsets.only(top: 20),
+                    color: Colors.white,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Nombre',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    height: 40,
+                    margin: const EdgeInsets.only(top: 20),
+                    color: Colors.white,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Apellidos',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    height: 40,
+                    margin: const EdgeInsets.only(top: 20),
+                    color: Colors.white,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Usuario',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    height: 40,
+                    margin: const EdgeInsets.only(top: 20),
+                    color: Colors.white,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Ciudad/Pueblo',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    height: 40,
+                    margin: const EdgeInsets.only(top: 20),
+                    color: Colors.white,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white,
+                        hintText: 'Contraseña',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    width: 300,
+                    height: 40,
+                    margin: EdgeInsets.only(top: 20),
+                    color: Colors.white,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        fillColor: Colors.white,
+                        hintText: 'Confirmar contraseña',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text('Avatar   '),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Icon(
+                              Icons.account_circle_outlined,
+                              color: Color.fromRGBO(0, 0, 0, 1),
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                                '                                             Imagen/Fondo')
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: 25, right: 25, top: 30, bottom: 15),
+                    width: 200,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        elevation: 5,
+                        primary: Color.fromRGBO(27, 125, 255, 1),
+                      ),
+                      onPressed: () {},
+                      child: const Text('Guardar'),
+                    ),
+                  ),
+                ]),
           ),
         ],
       ),

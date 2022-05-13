@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easycook_flutter/ui/screens/perfil_setting.dart';
+import 'package:easycook_flutter/ui/screens/register.dart';
 import 'package:flutter/material.dart';
 
 class Perfil extends StatefulWidget {
@@ -9,39 +11,6 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
-  // donde te lleva o lo que sale al pulsar cada botón del menú inferior
-  int _selectedIndex = 3;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Inicio',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Recetas',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Usuarios',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Perfil',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 4: Mapa',
-      style: optionStyle,
-    ),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,18 +55,28 @@ class _PerfilState extends State<Perfil> {
                   child: Text('0 recetas', style: TextStyle(fontSize: 15))),
               Container(
                 margin: EdgeInsets.only(top: 275, left: 310),
-                child: Icon(
-                  Icons.settings,
-                  color: Color.fromRGBO(27, 125, 255, 1),
-                  size: 25,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PerfilSetting()),
+                    );
+                  },
+                  icon: Icon(Icons.settings,
+                      color: Color.fromRGBO(27, 125, 255, 1), size: 25),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 275, left: 340),
-                child: Icon(
-                  Icons.exit_to_app_sharp,
-                  color: Color.fromRGBO(27, 125, 255, 1),
-                  size: 25,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Register()),
+                    );
+                  },
+                  icon: Icon(Icons.exit_to_app_sharp,
+                      color: Color.fromRGBO(27, 125, 255, 1), size: 25),
                 ),
               ),
             ],
@@ -287,61 +266,6 @@ class _PerfilState extends State<Perfil> {
             ],
           )),
         ],
-      ),
-
-      //menu de navegación inferior
-
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Color.fromRGBO(0, 0, 0, 1),
-              size: 40,
-            ),
-            label: 'Inicio',
-            backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.food_bank_outlined,
-              color: Color.fromRGBO(0, 0, 0, 1),
-              size: 40,
-            ),
-            label: 'Recetas',
-            backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.people_alt_rounded,
-              color: Color.fromRGBO(0, 0, 0, 1),
-              size: 40,
-            ),
-            label: 'Usuarios',
-            backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: Color.fromRGBO(0, 0, 0, 1),
-              size: 40,
-            ),
-            label: 'Perfil',
-            backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.map_outlined,
-              color: Color.fromRGBO(0, 0, 0, 1),
-              size: 40,
-            ),
-            label: 'Mapa',
-            backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color.fromRGBO(252, 0, 0, 1),
-        onTap: _onItemTapped,
       ),
     );
   }

@@ -1,5 +1,8 @@
+import 'package:easycook_flutter/ui/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'menu.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -92,7 +95,12 @@ class _LoginState extends State<Login> {
                           elevation: 5,
                           primary: Color.fromRGBO(27, 125, 255, 1),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Menu()),
+                          );
+                        },
                         child: const Text('Login'),
                       ),
                     ),

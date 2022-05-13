@@ -1,4 +1,6 @@
 import 'package:easycook_flutter/ui/screens/home_screen.dart';
+import 'package:easycook_flutter/ui/screens/login.dart';
+import 'package:easycook_flutter/ui/screens/menu.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -200,7 +202,7 @@ class _RegisterState extends State<Register> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
+                                builder: (context) => const Menu()),
                           );
                         },
                         child: const Text('Registrar'),
@@ -218,10 +220,17 @@ class _RegisterState extends State<Register> {
             ),
           ),
           Container(
-            child: Text(
-              'Logueate Aquí',
-              style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1), fontSize: 20),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
+              child: Text(
+                'Logueate Aquí',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
           )
         ]),

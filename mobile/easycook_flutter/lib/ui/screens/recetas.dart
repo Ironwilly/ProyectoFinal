@@ -70,62 +70,283 @@ class _RecetasState extends State<Recetas> {
               maxLines: 1,
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 25, right: 25, top: 50),
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  primary: Color.fromRGBO(255, 255, 255, 1),
-                  onPrimary: Color.fromRGBO(0, 0, 0, 1),
-                  elevation: 5,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 1),
-                  side: BorderSide(
-                      color: Color.fromRGBO(0, 0, 0, 0.3), width: 1)),
-              child: const Text(
-                'Buscar por recetas',
-                style: TextStyle(fontSize: 25),
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 25, right: 25, top: 50),
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  primary: Color.fromRGBO(255, 255, 255, 1),
-                  onPrimary: Color.fromRGBO(0, 0, 0, 1),
-                  elevation: 5,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 1),
-                  side: BorderSide(
-                      color: Color.fromRGBO(0, 0, 0, 0.3), width: 1)),
-              child: const Text('Buscar por ingredientes',
-                  style: TextStyle(fontSize: 25)),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 25, right: 25, top: 50),
-            width: MediaQuery.of(context).size.width,
-            height: 50,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  shape: StadiumBorder(),
-                  primary: Color.fromRGBO(255, 255, 255, 1),
-                  onPrimary: Color.fromRGBO(0, 0, 0, 1),
-                  elevation: 5,
-                  shadowColor: Color.fromRGBO(0, 0, 0, 1),
-                  side: BorderSide(
-                      color: Color.fromRGBO(0, 0, 0, 0.3), width: 1)),
-              child: const Text('Buscar por usuarios',
-                  style: TextStyle(fontSize: 25)),
-            ),
-          ),
+          Expanded(
+              child: ListView(
+            children: <Widget>[
+              Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  margin: EdgeInsets.all(25),
+                  elevation: 10,
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            child: Stack(
+                          children: [
+                            Container(
+                              child: Image.asset(
+                                'assets/images/Stroganoff.png',
+                                width: 400,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 110, left: 220),
+                              height: 70,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/stanReco.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          ],
+                        )),
+                        Container(
+                          margin: EdgeInsets.only(
+                              bottom: 18, top: 2, right: 20, left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Stroganoff de pollo fácil',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.favorite,
+                                color: Color.fromRGBO(27, 125, 255, 1),
+                                size: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  margin: EdgeInsets.all(25),
+                  elevation: 10,
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            child: Stack(
+                          children: [
+                            Container(
+                              child: Image.asset(
+                                'assets/images/tapioca.png',
+                                width: 400,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 110, left: 220),
+                              height: 70,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/kennyReco.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          ],
+                        )),
+                        Container(
+                          margin: EdgeInsets.only(
+                              bottom: 18, top: 2, right: 20, left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Deliciosa pizza de tapioca',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.favorite,
+                                color: Color.fromRGBO(27, 125, 255, 1),
+                                size: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  margin: EdgeInsets.all(25),
+                  elevation: 10,
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            child: Stack(
+                          children: [
+                            Container(
+                              child: Image.asset(
+                                'assets/images/patatas.png',
+                                width: 400,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 110, left: 220),
+                              height: 70,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/kyleReco.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          ],
+                        )),
+                        Container(
+                          margin: EdgeInsets.only(
+                              bottom: 18, top: 2, right: 20, left: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Papas fritas en la freidora de aire',
+                                maxLines: 3,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.favorite,
+                                color: Color.fromRGBO(27, 125, 255, 1),
+                                size: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  margin: EdgeInsets.all(25),
+                  elevation: 10,
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            child: Stack(
+                          children: [
+                            Container(
+                              child: Image.asset(
+                                'assets/images/alcachofas.png',
+                                width: 400,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 110, left: 220),
+                              height: 70,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/kennyReco.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          ],
+                        )),
+                        Container(
+                          margin: EdgeInsets.only(
+                              bottom: 18, top: 2, right: 20, left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Alcachofas cocidas',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.favorite,
+                                color: Color.fromRGBO(27, 125, 255, 1),
+                                size: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  margin: EdgeInsets.all(25),
+                  elevation: 10,
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            child: Stack(
+                          children: [
+                            Container(
+                              child: Image.asset(
+                                'assets/images/besugo.png',
+                                width: 400,
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 110, left: 220),
+                              height: 70,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/kyleReco.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            )
+                          ],
+                        )),
+                        Container(
+                          margin: EdgeInsets.only(
+                              bottom: 18, top: 2, right: 20, left: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Besugo al horno',
+                                maxLines: 3,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.favorite,
+                                color: Color.fromRGBO(27, 125, 255, 1),
+                                size: 25,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+            ],
+          )),
         ],
       ),
 

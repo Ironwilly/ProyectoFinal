@@ -1,16 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class Otros extends StatefulWidget {
-  const Otros({Key? key}) : super(key: key);
+class Perfil extends StatefulWidget {
+  const Perfil({Key? key}) : super(key: key);
 
   @override
-  State<Otros> createState() => _OtrosState();
+  State<Perfil> createState() => _PerfilState();
 }
 
-class _OtrosState extends State<Otros> {
+class _PerfilState extends State<Perfil> {
   // donde te lleva o lo que sale al pulsar cada botón del menú inferior
-  int _selectedIndex = 2;
+  int _selectedIndex = 3;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -58,7 +58,7 @@ class _OtrosState extends State<Otros> {
                       bottomLeft: Radius.circular(40),
                       bottomRight: Radius.circular(40)),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/fondoStan.png'),
+                    image: AssetImage('assets/images/fondoCartman.png'),
                     fit: BoxFit.cover,
                   ),
                   shape: BoxShape.rectangle,
@@ -69,7 +69,7 @@ class _OtrosState extends State<Otros> {
                 height: 90,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/stanReco.png'),
+                    image: AssetImage('assets/images/cartman.png'),
                     fit: BoxFit.contain,
                   ),
                   shape: BoxShape.circle,
@@ -78,21 +78,44 @@ class _OtrosState extends State<Otros> {
               Container(
                   margin: EdgeInsets.only(top: 275, left: 150),
                   child: Text(
-                    'Stan Marsh',
+                    'Eric Cartman',
                     style: TextStyle(fontSize: 17),
                   )),
               Container(
                   margin: EdgeInsets.only(top: 295, left: 150),
-                  child: Text('100+ recetas', style: TextStyle(fontSize: 15))),
+                  child: Text('0 recetas', style: TextStyle(fontSize: 15))),
+              Container(
+                margin: EdgeInsets.only(top: 275, left: 310),
+                child: Icon(
+                  Icons.settings,
+                  color: Color.fromRGBO(27, 125, 255, 1),
+                  size: 25,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 275, left: 340),
+                child: Icon(
+                  Icons.exit_to_app_sharp,
+                  color: Color.fromRGBO(27, 125, 255, 1),
+                  size: 25,
+                ),
+              ),
             ],
           ),
           Container(
-            margin: EdgeInsets.only(left: 5, right: 5),
-            child: AutoSizeText(
-              "Otros",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 50.0),
-              maxLines: 1,
+            margin: EdgeInsets.only(bottom: 10, top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  'Favoritos',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Mis recetas',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )
+              ],
             ),
           ),
           Expanded(
@@ -165,7 +188,7 @@ class _OtrosState extends State<Otros> {
                           children: [
                             Container(
                               child: Image.asset(
-                                'assets/images/lasana.png',
+                                'assets/images/tapioca.png',
                                 width: 400,
                                 fit: BoxFit.fitHeight,
                               ),
@@ -176,7 +199,7 @@ class _OtrosState extends State<Otros> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image:
-                                      AssetImage('assets/images/stanReco.png'),
+                                      AssetImage('assets/images/kennyReco.png'),
                                   fit: BoxFit.contain,
                                 ),
                                 shape: BoxShape.circle,
@@ -191,7 +214,7 @@ class _OtrosState extends State<Otros> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                'Lasanha deliciosa',
+                                'Deliciosa pizza de tapioca',
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
@@ -219,7 +242,7 @@ class _OtrosState extends State<Otros> {
                           children: [
                             Container(
                               child: Image.asset(
-                                'assets/images/Stroganoff.png',
+                                'assets/images/patatas.png',
                                 width: 400,
                                 fit: BoxFit.fitHeight,
                               ),
@@ -230,7 +253,7 @@ class _OtrosState extends State<Otros> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image:
-                                      AssetImage('assets/images/stanReco.png'),
+                                      AssetImage('assets/images/kyleReco.png'),
                                   fit: BoxFit.contain,
                                 ),
                                 shape: BoxShape.circle,
@@ -241,11 +264,12 @@ class _OtrosState extends State<Otros> {
                         Container(
                           margin: EdgeInsets.only(
                               bottom: 18, top: 2, right: 20, left: 10),
-                          child: Row(
+                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                'Stroganoff de pollo fácil',
+                                'Papas fritas en la freidora de aire',
+                                maxLines: 3,
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
@@ -259,169 +283,7 @@ class _OtrosState extends State<Otros> {
                         ),
                       ],
                     ),
-                  )),
-              Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                  margin: EdgeInsets.all(25),
-                  elevation: 10,
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            child: Stack(
-                          children: [
-                            Container(
-                              child: Image.asset(
-                                'assets/images/lasana.png',
-                                width: 400,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 110, left: 220),
-                              height: 70,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/stanReco.png'),
-                                  fit: BoxFit.contain,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                            )
-                          ],
-                        )),
-                        Container(
-                          margin: EdgeInsets.only(
-                              bottom: 18, top: 2, right: 20, left: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'Lasanha deliciosa',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              Icon(
-                                Icons.favorite,
-                                color: Color.fromRGBO(27, 125, 255, 1),
-                                size: 25,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-              Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                  margin: EdgeInsets.all(25),
-                  elevation: 10,
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            child: Stack(
-                          children: [
-                            Container(
-                              child: Image.asset(
-                                'assets/images/Stroganoff.png',
-                                width: 400,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 110, left: 220),
-                              height: 70,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/stanReco.png'),
-                                  fit: BoxFit.contain,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                            )
-                          ],
-                        )),
-                        Container(
-                          margin: EdgeInsets.only(
-                              bottom: 18, top: 2, right: 20, left: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'Stroganoff de pollo fácil',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              Icon(
-                                Icons.favorite,
-                                color: Color.fromRGBO(27, 125, 255, 1),
-                                size: 25,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-              Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                  margin: EdgeInsets.all(25),
-                  elevation: 10,
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            child: Stack(
-                          children: [
-                            Container(
-                              child: Image.asset(
-                                'assets/images/lasana.png',
-                                width: 400,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 110, left: 220),
-                              height: 70,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/stanReco.png'),
-                                  fit: BoxFit.contain,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                            )
-                          ],
-                        )),
-                        Container(
-                          margin: EdgeInsets.only(
-                              bottom: 18, top: 2, right: 20, left: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'Lasanha deliciosa',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              Icon(
-                                Icons.favorite,
-                                color: Color.fromRGBO(27, 125, 255, 1),
-                                size: 25,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
+                  ))
             ],
           )),
         ],

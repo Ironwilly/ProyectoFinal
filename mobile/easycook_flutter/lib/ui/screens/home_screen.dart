@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easycook_flutter/ui/screens/usuarios_lista.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -111,7 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
             width: MediaQuery.of(context).size.width,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UsuariosLista()),
+                );
+              },
               style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),
                   primary: Color.fromRGBO(255, 255, 255, 1),

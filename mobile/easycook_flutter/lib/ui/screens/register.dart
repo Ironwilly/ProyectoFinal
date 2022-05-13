@@ -1,3 +1,4 @@
+import 'package:easycook_flutter/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -195,7 +196,13 @@ class _RegisterState extends State<Register> {
                           elevation: 5,
                           primary: Color.fromRGBO(27, 125, 255, 1),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()),
+                          );
+                        },
                         child: const Text('Registrar'),
                       ),
                     ),

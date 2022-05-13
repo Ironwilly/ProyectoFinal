@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easycook_flutter/ui/screens/usuario_recientes.dart';
 import 'package:flutter/material.dart';
 
 class UsuariosLista extends StatefulWidget {
@@ -82,7 +83,13 @@ class _UsuariosListaState extends State<UsuariosLista> {
                     Padding(
                       padding: EdgeInsets.all(15.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UsuarioReciente()),
+                          );
+                        },
                         child: Container(
                           width: 100.0,
                           height: 100.0,
@@ -270,48 +277,6 @@ class _UsuariosListaState extends State<UsuariosLista> {
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold)),
                         Text('200+ recetas'),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.all(15),
-                color: Color.fromRGBO(255, 255, 255, 1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    side: BorderSide(
-                        width: 2, color: Color.fromRGBO(27, 125, 255, 1))),
-                elevation: 10,
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: 100.0,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/cartman.png'),
-                                  fit: BoxFit.cover),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              boxShadow: [
-                                BoxShadow(blurRadius: 1.0, color: Colors.black)
-                              ]),
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Text('Herbert Garrison',
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold)),
-                        Text('55 recetas'),
                       ],
                     ),
                   ],

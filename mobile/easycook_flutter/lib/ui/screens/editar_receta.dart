@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easycook_flutter/ui/screens/perfil_setting.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class EditarReceta extends StatefulWidget {
   const EditarReceta({Key? key}) : super(key: key);
@@ -55,10 +56,16 @@ class _EditarRecetaState extends State<EditarReceta> {
                   child: Text('0 recetas', style: TextStyle(fontSize: 15))),
               Container(
                 margin: EdgeInsets.only(top: 275, left: 340),
-                child: Icon(
-                  Icons.exit_to_app_sharp,
-                  color: Color.fromRGBO(27, 125, 255, 1),
-                  size: 25,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: PerfilSetting(),
+                            type: PageTransitionType.fade));
+                  },
+                  icon: Icon(Icons.arrow_back_ios,
+                      color: Color.fromRGBO(27, 125, 255, 1), size: 25),
                 ),
               ),
             ],
@@ -131,10 +138,10 @@ class _EditarRecetaState extends State<EditarReceta> {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PerfilSetting()),
-                        );
+                            context,
+                            PageTransition(
+                                child: PerfilSetting(),
+                                type: PageTransitionType.fade));
                       },
                       style: ElevatedButton.styleFrom(
                           shape: StadiumBorder(),

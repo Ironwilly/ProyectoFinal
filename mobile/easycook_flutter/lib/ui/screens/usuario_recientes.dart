@@ -1,5 +1,10 @@
+import 'package:easycook_flutter/ui/screens/home_screen.dart';
+import 'package:easycook_flutter/ui/screens/menu.dart';
+import 'package:easycook_flutter/ui/screens/perfil_setting.dart';
+import 'package:easycook_flutter/ui/screens/receta_item.dart';
 import 'package:easycook_flutter/ui/screens/usuario_categorias.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class UsuarioReciente extends StatefulWidget {
   const UsuarioReciente({Key? key}) : super(key: key);
@@ -51,6 +56,19 @@ class _UsuarioRecienteState extends State<UsuarioReciente> {
               Container(
                   margin: EdgeInsets.only(top: 295, left: 150),
                   child: Text('100+ recetas', style: TextStyle(fontSize: 15))),
+              Container(
+                margin: EdgeInsets.only(top: 275, left: 310),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: Menu(), type: PageTransitionType.fade));
+                  },
+                  icon: Icon(Icons.menu,
+                      color: Color.fromRGBO(27, 125, 255, 1), size: 25),
+                ),
+              ),
             ],
           ),
           Container(
@@ -66,8 +84,9 @@ class _UsuarioRecienteState extends State<UsuarioReciente> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => UsuarioCategorias()),
+                        PageTransition(
+                            child: UsuarioCategorias(),
+                            type: PageTransitionType.fade),
                       );
                       style:
                       TextButton.styleFrom(
@@ -92,55 +111,65 @@ class _UsuarioRecienteState extends State<UsuarioReciente> {
                       borderRadius: BorderRadius.all(Radius.circular(30))),
                   margin: EdgeInsets.all(25),
                   elevation: 10,
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            child: Stack(
-                          children: [
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: RecetaItem(),
+                                type: PageTransitionType.fade));
+                      },
+                      child: Container(
+                        child: Column(
+                          children: <Widget>[
                             Container(
-                              child: Image.asset(
-                                'assets/images/Stroganoff.png',
-                                width: 400,
-                                fit: BoxFit.fitHeight,
+                                child: Stack(
+                              children: [
+                                Container(
+                                  child: Image.asset(
+                                    'assets/images/Stroganoff.png',
+                                    width: 400,
+                                    fit: BoxFit.fitHeight,
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(top: 110, left: 220),
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/stanReco.png'),
+                                      fit: BoxFit.contain,
+                                    ),
+                                    shape: BoxShape.circle,
+                                  ),
+                                )
+                              ],
+                            )),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  bottom: 18, top: 2, right: 20, left: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    'Stroganoff de pollo fácil',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Color.fromRGBO(27, 125, 255, 1),
+                                    size: 25,
+                                  ),
+                                ],
                               ),
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 110, left: 220),
-                              height: 70,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/images/stanReco.png'),
-                                  fit: BoxFit.contain,
-                                ),
-                                shape: BoxShape.circle,
-                              ),
-                            )
                           ],
-                        )),
-                        Container(
-                          margin: EdgeInsets.only(
-                              bottom: 18, top: 2, right: 20, left: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'Stroganoff de pollo fácil',
-                                style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              Icon(
-                                Icons.favorite,
-                                color: Color.fromRGBO(27, 125, 255, 1),
-                                size: 25,
-                              ),
-                            ],
-                          ),
                         ),
-                      ],
-                    ),
-                  )),
+                      ))),
               Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30))),

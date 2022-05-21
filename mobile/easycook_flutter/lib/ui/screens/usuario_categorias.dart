@@ -1,8 +1,11 @@
 import 'package:easycook_flutter/ui/screens/dulces.dart';
+import 'package:easycook_flutter/ui/screens/menu.dart';
 import 'package:easycook_flutter/ui/screens/otros.dart';
 import 'package:easycook_flutter/ui/screens/pastas.dart';
+import 'package:easycook_flutter/ui/screens/perfil_setting.dart';
 import 'package:easycook_flutter/ui/screens/usuario_recientes.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class UsuarioCategorias extends StatefulWidget {
   const UsuarioCategorias({Key? key}) : super(key: key);
@@ -54,6 +57,19 @@ class _UsuarioCategoriasState extends State<UsuarioCategorias> {
               Container(
                   margin: EdgeInsets.only(top: 295, left: 150),
                   child: Text('100+ recetas', style: TextStyle(fontSize: 15))),
+              Container(
+                margin: EdgeInsets.only(top: 275, left: 310),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: Menu(), type: PageTransitionType.fade));
+                  },
+                  icon: Icon(Icons.menu,
+                      color: Color.fromRGBO(27, 125, 255, 1), size: 25),
+                ),
+              ),
             ],
           ),
           Container(
@@ -64,10 +80,10 @@ class _UsuarioCategoriasState extends State<UsuarioCategorias> {
                 TextButton(
                   onPressed: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UsuarioReciente()),
-                    );
+                        context,
+                        PageTransition(
+                            child: UsuarioReciente(),
+                            type: PageTransitionType.fade));
                   },
                   child: Text(
                     'Recientes',
@@ -132,10 +148,10 @@ class _UsuarioCategoriasState extends State<UsuarioCategorias> {
                             ),
                             onPressed: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Pastas()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      child: Pastas(),
+                                      type: PageTransitionType.fade));
                             },
                             child: const Text('Ver'),
                           ),
@@ -193,10 +209,10 @@ class _UsuarioCategoriasState extends State<UsuarioCategorias> {
                             ),
                             onPressed: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Dulces()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      child: Dulces(),
+                                      type: PageTransitionType.fade));
                             },
                             child: const Text('Ver'),
                           ),
@@ -254,10 +270,10 @@ class _UsuarioCategoriasState extends State<UsuarioCategorias> {
                             ),
                             onPressed: () {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Otros()),
-                              );
+                                  context,
+                                  PageTransition(
+                                      child: Otros(),
+                                      type: PageTransitionType.fade));
                             },
                             child: const Text('Ver'),
                           ),

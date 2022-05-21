@@ -1,6 +1,7 @@
 import 'package:easycook_flutter/ui/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'menu.dart';
 
@@ -97,9 +98,10 @@ class _LoginState extends State<Login> {
                         ),
                         onPressed: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Menu()),
-                          );
+                              context,
+                              PageTransition(
+                                  child: Menu(),
+                                  type: PageTransitionType.fade));
                         },
                         child: const Text('Login'),
                       ),

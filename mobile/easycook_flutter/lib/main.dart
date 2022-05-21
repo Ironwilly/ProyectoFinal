@@ -12,6 +12,7 @@ import 'package:easycook_flutter/ui/screens/otros.dart';
 import 'package:easycook_flutter/ui/screens/pastas.dart';
 import 'package:easycook_flutter/ui/screens/perfil.dart';
 import 'package:easycook_flutter/ui/screens/perfil_setting.dart';
+import 'package:easycook_flutter/ui/screens/receta_item.dart';
 import 'package:easycook_flutter/ui/screens/recetas.dart';
 import 'package:easycook_flutter/ui/screens/register.dart';
 import 'package:easycook_flutter/ui/screens/usuario_categorias.dart';
@@ -57,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       routes: {
         '/': (context) => const Register(),
         '/EditarReceta': (context) => const EditarReceta(),
+        '/RecetaItem': (context) => const RecetaItem(),
         '/Menu': (context) => const Menu(),
         '/Mapa': (context) => const Mapa(),
         '/BusquedaReceta': (context) => const BusquedaReceta(),

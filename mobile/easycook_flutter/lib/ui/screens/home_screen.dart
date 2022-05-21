@@ -5,6 +5,7 @@ import 'package:easycook_flutter/ui/screens/perfil.dart';
 import 'package:easycook_flutter/ui/screens/recetas.dart';
 import 'package:easycook_flutter/ui/screens/usuarios_lista.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -47,9 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BusquedaReceta()),
-                );
+                    context,
+                    PageTransition(
+                        child: BusquedaReceta(),
+                        type: PageTransitionType.fade));
               },
               style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),

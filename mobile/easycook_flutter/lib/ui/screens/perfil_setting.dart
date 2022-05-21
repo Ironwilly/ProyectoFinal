@@ -2,6 +2,7 @@ import 'package:easycook_flutter/ui/screens/editar_perfil.dart';
 import 'package:easycook_flutter/ui/screens/editar_receta.dart';
 import 'package:easycook_flutter/ui/screens/perfil.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class PerfilSetting extends StatefulWidget {
   const PerfilSetting({Key? key}) : super(key: key);
@@ -54,15 +55,15 @@ class _PerfilSettingState extends State<PerfilSetting> {
                   margin: EdgeInsets.only(top: 295, left: 150),
                   child: Text('0 recetas', style: TextStyle(fontSize: 15))),
               Container(
-                margin: EdgeInsets.only(top: 264, left: 340),
+                margin: EdgeInsets.only(top: 275, left: 340),
                 child: IconButton(
                   onPressed: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Perfil()),
-                    );
+                        context,
+                        PageTransition(
+                            child: Perfil(), type: PageTransitionType.fade));
                   },
-                  icon: Icon(Icons.exit_to_app_sharp,
+                  icon: Icon(Icons.arrow_back_ios,
                       color: Color.fromRGBO(27, 125, 255, 1), size: 25),
                 ),
               ),
@@ -76,7 +77,8 @@ class _PerfilSettingState extends State<PerfilSetting> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const EditarPerfil()),
+                  PageTransition(
+                      child: EditarPerfil(), type: PageTransitionType.fade),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -101,9 +103,9 @@ class _PerfilSettingState extends State<PerfilSetting> {
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const EditarReceta()),
-                );
+                    context,
+                    PageTransition(
+                        child: EditarReceta(), type: PageTransitionType.fade));
               },
               style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),

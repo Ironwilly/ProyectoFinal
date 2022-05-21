@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easycook_flutter/ui/screens/usuario_recientes.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class UsuariosLista extends StatefulWidget {
   const UsuariosLista({Key? key}) : super(key: key);
@@ -38,52 +39,52 @@ class _UsuariosListaState extends State<UsuariosLista> {
               child: ListView(
             children: <Widget>[
               Card(
-                margin: EdgeInsets.all(15),
-                color: Color.fromRGBO(255, 255, 255, 1),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    side: BorderSide(
-                        width: 2, color: Color.fromRGBO(27, 125, 255, 1))),
-                elevation: 10,
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UsuarioReciente()),
-                          );
-                        },
-                        child: Container(
-                          width: 100.0,
-                          height: 100.0,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              image: DecorationImage(
-                                  image: AssetImage('assets/images/stan.png'),
-                                  fit: BoxFit.none),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              boxShadow: [
-                                BoxShadow(blurRadius: 1.0, color: Colors.black)
-                              ]),
+                  margin: EdgeInsets.all(15),
+                  color: Color.fromRGBO(255, 255, 255, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      side: BorderSide(
+                          width: 2, color: Color.fromRGBO(27, 125, 255, 1))),
+                  elevation: 10,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: UsuarioReciente(),
+                              type: PageTransitionType.fade));
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Container(
+                            width: 100.0,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/stan.png'),
+                                    fit: BoxFit.none),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 1.0, color: Colors.black)
+                                ]),
+                          ),
                         ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Text('Stan Marsh',
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold)),
-                        Text('100+ recetas'),
+                        Column(
+                          children: [
+                            Text('Stan Marsh',
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold)),
+                            Text('100+ recetas'),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
-              ),
+                  )),
               Card(
                 margin: EdgeInsets.all(15),
                 color: Color.fromRGBO(255, 255, 255, 1),

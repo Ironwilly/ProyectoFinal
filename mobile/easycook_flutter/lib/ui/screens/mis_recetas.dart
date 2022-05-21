@@ -1,5 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easycook_flutter/ui/screens/agregar_receta.dart';
+import 'package:easycook_flutter/ui/screens/perfil.dart';
+import 'package:easycook_flutter/ui/screens/perfil_setting.dart';
+import 'package:easycook_flutter/ui/screens/register.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class MisRecetas extends StatefulWidget {
   const MisRecetas({Key? key}) : super(key: key);
@@ -54,31 +59,71 @@ class _MisRecetasState extends State<MisRecetas> {
                   child: Text('0 recetas', style: TextStyle(fontSize: 15))),
               Container(
                 margin: EdgeInsets.only(top: 275, left: 310),
-                child: Icon(
-                  Icons.settings,
-                  color: Color.fromRGBO(27, 125, 255, 1),
-                  size: 25,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: PerfilSetting(),
+                            type: PageTransitionType.fade));
+                  },
+                  icon: Icon(Icons.settings,
+                      color: Color.fromRGBO(27, 125, 255, 1), size: 25),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 275, left: 340),
-                child: Icon(
-                  Icons.exit_to_app_sharp,
-                  color: Color.fromRGBO(27, 125, 255, 1),
-                  size: 25,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: Register(), type: PageTransitionType.fade));
+                  },
+                  icon: Icon(Icons.exit_to_app_sharp,
+                      color: Color.fromRGBO(27, 125, 255, 1), size: 25),
                 ),
               ),
             ],
           ),
           Container(
-            height: 398,
+            margin: EdgeInsets.only(bottom: 10, top: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: Perfil(), type: PageTransitionType.fade));
+                  },
+                  child: Text(
+                    'Favoritos',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromRGBO(0, 0, 0, 1)),
+                  ),
+                ),
+                Text(
+                  'Mis recetas',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(27, 125, 255, 1)),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
             child: ListView(
                 padding: const EdgeInsets.only(left: 30, right: 30),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 children: <Widget>[
                   Container(
-                      margin: EdgeInsets.only(top: 100, bottom: 30),
+                      margin: EdgeInsets.only(top: 50, bottom: 30),
                       child: AutoSizeText(
                         '               UPS...'
                         '                      Parece que aún no has '
@@ -91,7 +136,11 @@ class _MisRecetasState extends State<MisRecetas> {
                         left: 130, right: 130, top: 2, bottom: 20),
                     child: FloatingActionButton(
                       onPressed: () {
-                        // Add your onPressed code here!
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: AgregarReceta(),
+                                type: PageTransitionType.fade));
                       },
                       backgroundColor: Color.fromRGBO(27, 125, 255, 1),
                       child: const Icon(

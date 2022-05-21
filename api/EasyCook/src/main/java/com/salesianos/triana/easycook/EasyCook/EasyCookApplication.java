@@ -1,4 +1,4 @@
-package com.salesianos.triana.EasyCook;
+package com.salesianos.triana.easycook.EasyCook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

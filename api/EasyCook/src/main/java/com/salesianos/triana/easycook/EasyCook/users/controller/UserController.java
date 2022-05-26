@@ -38,9 +38,10 @@ public class UserController {
                     content = @Content),
     })
     @PostMapping("/auth/register")
-    public ResponseEntity<GetUserDto> register(@RequestPart("user")CreateUserDto newUser, @RequestPart("avatar") MultipartFile file1,@RequestPart("fondo") MultipartFile file2) throws IOException{
+    public ResponseEntity<GetUserDto> register(@RequestPart("user")CreateUserDto newUser, @RequestPart("avatar")
+            MultipartFile file1) throws IOException{
 
-        User userSaved = userService.saveUser(newUser,file1,file2);
+        User userSaved = userService.saveUser(newUser,file1);
         if(userSaved == null){
             return ResponseEntity.badRequest().build();
         }else {

@@ -20,7 +20,5 @@ public class JwtUsuarioResponse {
 
     private String avatar;
 
-    private String fondo;
-
     private String token;
 }

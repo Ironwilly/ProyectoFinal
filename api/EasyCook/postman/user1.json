@@ -1,24 +1,12 @@
-{
-    "nombre" : "Eric" ,
-    "apellidos" : "Cartman",
-    "nick" : "EricCartman",
-    "ciudad" : "Sevilla",
-    "email" : "cartman@gmail.com",
+{	"nombre" : "Eric" ,
+	"apellidos" : "Cartman",
+	"nick" : "EricCartman",
+	"ciudad" : "Sevilla",
+	"email" : "cartman@gmail.com",
     "password" : "12345678",
-    "password2" : "12345678"
-    "telefono" : "666555444",
+    "repetir_password" : "12345678"
+    
 
     }
 
-
- 
-
-
-
-
-
-
-    
-
-  
 

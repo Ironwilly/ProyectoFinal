@@ -33,7 +33,6 @@ public GetUserDto convertUserToUserDto(User user)   {
                 .password(user.getPassword())
                 .repetirPassword(user.getRepetirPassword())
                 .avatar(user.getAvatar())
-                .fondo(user.getFondo())
                 .build();
     }
 

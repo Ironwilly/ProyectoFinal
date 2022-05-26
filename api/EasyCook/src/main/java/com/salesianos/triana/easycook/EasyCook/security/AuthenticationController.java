@@ -55,7 +55,6 @@ public class AuthenticationController {
                 .nick(user.getNick())
                 .email(user.getEmail())
                 .avatar(user.getAvatar())
-                .fondo(user.getFondo())
                 .token(jwt)
                 .build();
     }

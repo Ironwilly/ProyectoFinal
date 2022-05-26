@@ -55,12 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/upload").anonymous()
-                .antMatchers(HttpMethod.GET, "/me").hasRole("USER")
-                .antMatchers(HttpMethod.POST, "/auth/registrer").anonymous()
-                .antMatchers(HttpMethod.POST, "/auth/login").anonymous()
-                .antMatchers(HttpMethod.GET, "/download/**").anonymous()
-                .antMatchers(HttpMethod.GET, "/post/public").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/post/{id}").authenticated()
+                .antMatchers(HttpMethod.GET, "/me").hasRole("USUARIO")
+                .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth/login").hasRole("USUARIO")
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated();
 

@@ -58,6 +58,7 @@ public class User implements UserDetails {
 
     private String fondo;
 
+    @Enumerated(EnumType.STRING)
     private UserRole rol;
 
 

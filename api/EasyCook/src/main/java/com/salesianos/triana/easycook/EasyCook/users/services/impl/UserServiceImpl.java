@@ -60,24 +60,36 @@ public class UserServiceImpl extends BaseService <User, UUID, UserRepository> im
         return this.repositorio.findById(id);
     }
 
-    public User saveUser(CreateUserDto createUserDto, MultipartFile file1) throws IOException{
+    public User saveUser(CreateUserDto createUserDto, MultipartFile file1,MultipartFile file2) throws IOException{
 
        if(createUserDto.getPassword().contentEquals(createUserDto.getRepetirPassword())){
 
            String name1 = storageService.store(file1);
+           String name2 = storageService.store(file2);
 
 
            String extension1 = StringUtils.getFilenameExtension(name1);
            BufferedImage originalImage1 = ImageIO.read(file1.getInputStream());
-           BufferedImage escaledImage1 = storageService.simpleResizer(originalImage1, 256);
+           BufferedImage escaledImage1 = storageService.simpleResizer(originalImage1, 64);
            OutputStream outputStream1 = Files.newOutputStream(storageService.load(name1));
            ImageIO.write(escaledImage1, extension1, outputStream1);
 
+           String extension2 = StringUtils.getFilenameExtension(name2);
+           BufferedImage originalImage2 = ImageIO.read(file2.getInputStream());
+           BufferedImage escaledImage2 = storageService.simpleResizer(originalImage2, 256);
+           OutputStream outputStream2 = Files.newOutputStream(storageService.load(name2));
+           ImageIO.write(escaledImage2, extension2, outputStream2);
 
 
-           String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+
+           String uri1 = ServletUriComponentsBuilder.fromCurrentContextPath()
                    .path("/avatar/")
                    .path(name1)
+                   .toUriString();
+
+           String uri2 = ServletUriComponentsBuilder.fromCurrentContextPath()
+                   .path("/avatar/")
+                   .path(name2)
                    .toUriString();
 
 
@@ -89,7 +101,8 @@ public class UserServiceImpl extends BaseService <User, UUID, UserRepository> im
                    .ciudad(createUserDto.getCiudad())
                    .email(createUserDto.getEmail())
                    .password(passwordEncoder.encode(createUserDto.getPassword()))
-                   .avatar(uri)
+                   .avatar(uri1)
+                   .fondo(uri2)
                    .rol(UserRole.USUARIO)
                    .build();
 
@@ -102,16 +115,25 @@ public class UserServiceImpl extends BaseService <User, UUID, UserRepository> im
        }
     }
 
-    public CreateUserDto editUser (CreateUserDto createUserDto, User user, MultipartFile file1){
+    public CreateUserDto editUser (CreateUserDto createUserDto, User user, MultipartFile file1,MultipartFile file2){
 
-       Optional<User> oldUser = repositorio.findById(user.getId());
-       storageService.deleteFile(oldUser.get().getAvatar());
-       String filename1 = storageService.store(file1);
+        Optional<User> oldUser = repositorio.findById(user.getId());
+        storageService.deleteFile(oldUser.get().getAvatar());
+        String filename1 = storageService.store(file1);
+
+        Optional<User> oldUser2 = repositorio.findById(user.getId());
+        storageService.deleteFile(oldUser.get().getAvatar());
+        String filename2 = storageService.store(file2);
 
 
-        String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+        String uri1 = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/avatar/")
                 .path(filename1)
+                .toUriString();
+
+        String uri2 = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/fondo/")
+                .path(filename2)
                 .toUriString();
 
 
@@ -122,7 +144,8 @@ public class UserServiceImpl extends BaseService <User, UUID, UserRepository> im
             u.setNick(createUserDto.getNick());
             u.setCiudad(createUserDto.getCiudad());
             u.setEmail(createUserDto.getEmail());
-            u.setAvatar(uri);
+            u.setAvatar(uri1);
+            u.setFondo(uri2);
             userRepository.save(u);
             return userDtoConverter.convertUserToCreateUserDto(u);
 

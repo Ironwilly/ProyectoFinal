@@ -204,7 +204,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public BufferedImage simpleResizer(BufferedImage bufferedImage, int width){return Scalr.resize(bufferedImage, 1024);    }
+    public BufferedImage simpleResizer(BufferedImage bufferedImage, int width){return Scalr.resize(bufferedImage, 512);    }
 
 
 }

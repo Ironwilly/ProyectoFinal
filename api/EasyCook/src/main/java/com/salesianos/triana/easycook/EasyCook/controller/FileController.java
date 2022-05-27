@@ -26,37 +26,65 @@ public class FileController {
     private final StorageService storageService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestPart("avatar") MultipartFile file1) throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("avatar") MultipartFile file1,@RequestPart("fomdo") MultipartFile file2) throws IOException {
 
 
-        String name = storageService.store(file1);
-        String extension = StringUtils.getFilenameExtension(name);
+        String name1 = storageService.store(file1);
+        String extension = StringUtils.getFilenameExtension(name1);
         BufferedImage originalImage = ImageIO.read(file1.getInputStream());
-        BufferedImage escaledImage = storageService.simpleResizer(originalImage, 128);
-        OutputStream outputStream = Files.newOutputStream(storageService.load(name));
+        BufferedImage escaledImage = storageService.simpleResizer(originalImage, 64);
+        OutputStream outputStream = Files.newOutputStream(storageService.load(name1));
         ImageIO.write(escaledImage,extension,outputStream);
 
+        String name2 = storageService.store(file2);
+        String extension2 = StringUtils.getFilenameExtension(name2);
+        BufferedImage originalImage2 = ImageIO.read(file1.getInputStream());
+        BufferedImage escaledImage2 = storageService.simpleResizer(originalImage2, 128);
+        OutputStream outputStream2 = Files.newOutputStream(storageService.load(name2));
+        ImageIO.write(escaledImage2,extension2,outputStream2);
 
 
-        String uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+
+        String uri1 = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/avatar/")
-                .path(name)
+                .path(name1)
+                .toUriString();
+
+        String uri2 = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/fondo/")
+                .path(name2)
                 .toUriString();
 
         FileResponse response = FileResponse.builder()
-                .name(name)
+                .name(name1)
+                .name(name2)
                 .size(file1.getSize())
+                .size(file2.getSize())
                 .type(file1.getContentType())
-                .uri(uri)
+                .type(file2.getContentType())
+                .uri(uri1)
+                .uri(uri2)
                 .build();
 
-        return ResponseEntity.created(URI.create(uri)).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     }
 
     @GetMapping("/avatar/{filename:.+}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-        MediaTypeUrlResource resource = (MediaTypeUrlResource) storageService.loadAsResource(filename);
+    public ResponseEntity<Resource> getFile1(@PathVariable String filename1) {
+        MediaTypeUrlResource resource = (MediaTypeUrlResource) storageService.loadAsResource(filename1);
+
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("content-type", resource.getType())
+                .body(resource);
+
+
+    }
+
+    @GetMapping("/fondo/{filename:.+}")
+    public ResponseEntity<Resource> getFile2(@PathVariable String filename2) {
+        MediaTypeUrlResource resource = (MediaTypeUrlResource) storageService.loadAsResource(filename2);
 
 
         return ResponseEntity.status(HttpStatus.OK)

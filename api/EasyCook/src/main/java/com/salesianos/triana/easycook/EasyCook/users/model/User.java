@@ -56,6 +56,8 @@ public class User implements UserDetails {
 
     private String avatar;
 
+    private String fondo;
+
 
 
     @Enumerated(EnumType.STRING)

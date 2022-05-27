@@ -19,6 +19,7 @@ public GetUserDto convertUserToUserDto(User user)   {
             .nick(user.getNick())
             .email(user.getEmail())
             .avatar(user.getAvatar())
+            .fondo(user.getFondo())
             .rol(user.getRol().name())
             .build();
 }
@@ -33,6 +34,7 @@ public GetUserDto convertUserToUserDto(User user)   {
                 .password(user.getPassword())
                 .repetirPassword(user.getRepetirPassword())
                 .avatar(user.getAvatar())
+                .fondo(user.getFondo())
                 .build();
     }
 

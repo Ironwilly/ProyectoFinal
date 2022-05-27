@@ -18,7 +18,6 @@ class _MenuState extends State<Menu> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
     Recetas(),
     UsuariosLista(),
     Perfil(),
@@ -41,15 +40,6 @@ class _MenuState extends State<Menu> {
 
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                color: Color.fromRGBO(0, 0, 0, 1),
-                size: 40,
-              ),
-              label: 'Inicio',
-              backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-            ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.food_bank_outlined,

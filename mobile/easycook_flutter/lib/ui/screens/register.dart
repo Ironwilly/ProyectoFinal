@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
         ),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
-              margin: const EdgeInsets.only(top: 60),
+              margin: const EdgeInsets.only(top: 10),
               child: const Text(
                 'EasyCook',
                 style: TextStyle(
@@ -34,7 +34,7 @@ class _RegisterState extends State<Register> {
                 textAlign: TextAlign.center,
               )),
           Container(
-              margin: const EdgeInsets.only(top: 10, bottom: 20),
+              margin: const EdgeInsets.only(top: 0, bottom: 20),
               child: const Text(
                 'Registrate para ver las recetas.',
                 style: TextStyle(
@@ -42,8 +42,8 @@ class _RegisterState extends State<Register> {
                 textAlign: TextAlign.center,
               )),
           Container(
-            margin: EdgeInsets.only(left: 30, right: 30, bottom: 25),
-            height: 398,
+            margin: EdgeInsets.only(left: 30, right: 30, bottom: 5),
+            height: 498,
             child: Container(
               color: Color.fromRGBO(255, 255, 255, 1),
               child: ListView(

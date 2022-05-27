@@ -16,26 +16,52 @@ class _RecetasState extends State<Recetas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Image.asset('assets/images/logo5.png'),
+        leadingWidth: 95,
+        title: const Text('Sugerencias'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add_alert),
+            tooltip: 'Recetas',
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('This is a snackbar')));
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            tooltip: 'Go to the next page',
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute<void>(
+                builder: (BuildContext context) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      title: const Text('Next page'),
+                    ),
+                    body: const Center(
+                      child: Text(
+                        'This is the next page',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                    ),
+                  );
+                },
+              ));
+            },
+          ),
+        ],
+      ),
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 270,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/logoEasyCook.jpg'),
-                fit: BoxFit.contain,
-              ),
-              shape: BoxShape.rectangle,
-            ),
-          ),
-          Container(
             margin: EdgeInsets.only(left: 5, right: 5),
             child: AutoSizeText(
               "Recetas",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 60.0),
+              style: TextStyle(fontSize: 30.0),
               maxLines: 1,
             ),
           ),

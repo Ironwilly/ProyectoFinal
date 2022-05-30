@@ -10,7 +10,7 @@ import lombok.*;
 
 public class LoginDto {
 
-    private String nick;
+    private String email;
 
     private String password;
 }

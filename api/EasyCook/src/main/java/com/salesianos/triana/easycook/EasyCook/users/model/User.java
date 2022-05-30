@@ -1,27 +1,30 @@
 package com.salesianos.triana.easycook.EasyCook.users.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.salesianos.triana.easycook.EasyCook.models.Receta;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @Data
-@Table (name = "usuarios")
+@Table (name = "user")
+@SuperBuilder
 @Builder
 public class User implements UserDetails {
 
@@ -48,6 +51,8 @@ public class User implements UserDetails {
 
     private String ciudad;
 
+    @NaturalId
+    @Column(unique = true,updatable = false)
     private String email;
 
     private String password;
@@ -62,6 +67,13 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private UserRole rol;
+
+
+    @Builder.Default
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Set<Receta> recetas = new HashSet<>();
+
 
 
     @Override

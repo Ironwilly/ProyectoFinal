@@ -30,7 +30,7 @@ public class AuthenticationController {
         Authentication authentication =
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
-                                loginDto.getNick(),
+                                loginDto.getEmail(),
                                 loginDto.getPassword()
                         )
                 );

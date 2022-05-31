@@ -6,12 +6,17 @@ import com.salesianos.triana.easycook.EasyCook.dto.RecetaDtoConverter;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListEntityNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.SingleEntityNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.models.Receta;
+import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
 import com.salesianos.triana.easycook.EasyCook.repositorios.RecetaRepository;
 import com.salesianos.triana.easycook.EasyCook.services.RecetaService;
 import com.salesianos.triana.easycook.EasyCook.services.StorageService;
 import com.salesianos.triana.easycook.EasyCook.users.dto.CreateUserDto;
 import com.salesianos.triana.easycook.EasyCook.users.model.User;
 
+import com.salesianos.triana.easycook.EasyCook.users.model.UserRole;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,18 +31,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class RecetaServiceImpl implements RecetaService {
 
 
     private final StorageService storageService;
     private final RecetaRepository recetaRepository;
+
     private final RecetaDtoConverter recetaDtoConverter;
 
-    public RecetaServiceImpl(StorageService storageService, RecetaRepository recetaRepository, RecetaDtoConverter recetaDtoConverter) {
-        this.storageService = storageService;
-        this.recetaRepository = recetaRepository;
-        this.recetaDtoConverter = recetaDtoConverter;
-    }
+
 
 
 
@@ -87,6 +90,7 @@ public class RecetaServiceImpl implements RecetaService {
                 .ingredientes(createRecetaDto.getIngredientes())
                 .preparacion(createRecetaDto.getPreparacion())
                 .tiempoCocinar(createRecetaDto.getTiempoCocinar())
+                //.recetaCategoria(RecetaCategoria.valueOf(createRecetaDto.getRecetaCategoria()))
                 .fotoReceta(uriScale)
                 .user(user)
                 .build());
@@ -95,7 +99,9 @@ public class RecetaServiceImpl implements RecetaService {
                 .ingredientes(receta.getIngredientes())
                 .preparacion(receta.getPreparacion())
                 .tiempoCocinar(receta.getTiempoCocinar())
+                //.recetaCategoria(receta.getRecetaCategoria())
                 .fotoReceta(uriScale)
+                .user(user)
                 .build()
 
 
@@ -121,6 +127,8 @@ public class RecetaServiceImpl implements RecetaService {
             recetaEncontrada.setIngredientes(receta.get().getIngredientes());
             recetaEncontrada.setPreparacion(receta.get().getPreparacion());
             recetaEncontrada.setTiempoCocinar(receta.get().getTiempoCocinar());
+            //recetaEncontrada.setRecetaCategoria(receta.get().getRecetaCategoria());
+            recetaEncontrada.setUser(receta.get().getUser());
             recetaEncontrada.setFotoReceta(uri3);
 
             return recetaRepository.save(recetaEncontrada);
@@ -152,4 +160,14 @@ public class RecetaServiceImpl implements RecetaService {
             recetaRepository.deleteById(id);
           }
     }
+
+   //@Override
+   //public List<Receta> loadRecetaByCategoria(RecetaCategoria recetaCategoria) {
+   //     return recetaService.loadRecetaByCategoria(recetaCategoria);
+   //}
+
+
+
+
+
 }

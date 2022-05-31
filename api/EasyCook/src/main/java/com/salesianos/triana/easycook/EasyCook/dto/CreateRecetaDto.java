@@ -1,7 +1,10 @@
 package com.salesianos.triana.easycook.EasyCook.dto;
 
+import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
+import com.salesianos.triana.easycook.EasyCook.users.model.User;
 import lombok.*;
 
+import javax.persistence.Lob;
 import java.util.UUID;
 
 @Getter
@@ -15,9 +18,14 @@ public class CreateRecetaDto {
 
     private String ingredientes;
 
+    @Lob
     private String preparacion;
 
     private String tiempoCocinar;
 
+    //private String recetaCategoria;
+
     private String fotoReceta;
+
+
 }

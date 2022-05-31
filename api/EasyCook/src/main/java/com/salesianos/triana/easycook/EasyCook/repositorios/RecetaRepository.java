@@ -1,6 +1,9 @@
 package com.salesianos.triana.easycook.EasyCook.repositorios;
 
 import com.salesianos.triana.easycook.EasyCook.models.Receta;
+import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
+import com.salesianos.triana.easycook.EasyCook.users.model.User;
+import com.salesianos.triana.easycook.EasyCook.users.model.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +19,6 @@ public interface RecetaRepository extends JpaRepository <Receta,Long> {
             SELECT * FROM Receta
             """,nativeQuery = true)
     List<Receta> findAll();
+
+
 }

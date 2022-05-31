@@ -1,5 +1,6 @@
 package com.salesianos.triana.easycook.EasyCook.dto;
 
+import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
 import com.salesianos.triana.easycook.EasyCook.users.model.User;
 import lombok.*;
 
@@ -20,5 +21,7 @@ public class GetRecetaDto {
 
     private String fotoReceta;
 
-    private User user;
+    private String nick;
+
+    //private RecetaCategoria recetaCategoria;
 }

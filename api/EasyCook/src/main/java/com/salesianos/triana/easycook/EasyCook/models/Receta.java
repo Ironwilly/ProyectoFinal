@@ -28,16 +28,13 @@ public class Receta {
 
     private String fotoReceta;
 
+    //@Enumerated(EnumType.STRING)
+    //private RecetaCategoria recetaCategoria;
+
     @ManyToOne
     private User user;
 
-    public Receta(String ingredientes, String preparacion, String tiempoCocinar,String fotoReceta, User user) {
-        this.ingredientes = ingredientes;
-        this.preparacion = preparacion;
-        this.tiempoCocinar = tiempoCocinar;
-        this.fotoReceta = fotoReceta;
-        this.user = user;
-    }
+
 
     public void addUser (User u){
         this.user = u;

@@ -28,12 +28,11 @@ public class Receta {
 
     private String fotoReceta;
 
-    //@Enumerated(EnumType.STRING)
-    //private RecetaCategoria recetaCategoria;
+    @Enumerated(EnumType.STRING)
+    private RecetaCategoria recetaCategoria;
 
     @ManyToOne
     private User user;
-
 
 
     public void addUser (User u){

@@ -6,10 +6,7 @@ import com.salesianos.triana.easycook.EasyCook.models.Receta;
 import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
 import com.salesianos.triana.easycook.EasyCook.users.dto.CreateUserDto;
 import com.salesianos.triana.easycook.EasyCook.users.model.User;
-import com.salesianos.triana.easycook.EasyCook.users.model.UserRole;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -21,6 +18,8 @@ public interface RecetaService {
     CreateRecetaDto saveReceta(CreateRecetaDto createRecetaDto, MultipartFile file3, User user);
     Receta editReceta(Long id,CreateRecetaDto createRecetaDto,MultipartFile file3,CreateUserDto createUserDto);
     void removeRecetaById(Long id,User user) throws IOException;
-    //List<Receta> loadRecetaByCategoria(RecetaCategoria recetaCategoria);
+    List<Receta> findRecetaByCategoriaOtros(RecetaCategoria recetaCategoria);
+    List<Receta> findRecetaByCategoriaDulces(RecetaCategoria recetaCategoria);
+    List<Receta> findRecetaByCategoriaPastas(RecetaCategoria recetaCategoria);
     }
 

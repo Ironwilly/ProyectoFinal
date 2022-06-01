@@ -83,8 +83,9 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return nombre;
+        return nick;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

@@ -23,5 +23,7 @@ public class GetRecetaDto {
 
     private String nick;
 
-    //private RecetaCategoria recetaCategoria;
+    private User user;
+
+    private RecetaCategoria recetaCategoria;
 }

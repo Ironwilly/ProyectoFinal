@@ -12,16 +12,11 @@ import com.salesianos.triana.easycook.EasyCook.services.RecetaService;
 import com.salesianos.triana.easycook.EasyCook.services.StorageService;
 import com.salesianos.triana.easycook.EasyCook.users.dto.CreateUserDto;
 import com.salesianos.triana.easycook.EasyCook.users.model.User;
-
-import com.salesianos.triana.easycook.EasyCook.users.model.UserRole;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,15 +26,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class RecetaServiceImpl implements RecetaService {
 
 
-    private final StorageService storageService;
-    private final RecetaRepository recetaRepository;
-
-    private final RecetaDtoConverter recetaDtoConverter;
-
+    @Autowired
+    private  StorageService storageService;
+    @Autowired
+    private  RecetaRepository recetaRepository;
+    @Autowired
+    private RecetaDtoConverter recetaDtoConverter;
 
 
 
@@ -90,16 +85,16 @@ public class RecetaServiceImpl implements RecetaService {
                 .ingredientes(createRecetaDto.getIngredientes())
                 .preparacion(createRecetaDto.getPreparacion())
                 .tiempoCocinar(createRecetaDto.getTiempoCocinar())
-                //.recetaCategoria(RecetaCategoria.valueOf(createRecetaDto.getRecetaCategoria()))
+                .recetaCategoria(RecetaCategoria.valueOf(createRecetaDto.getRecetaCategoria()))
                 .fotoReceta(uriScale)
                 .user(user)
                 .build());
         return recetaDtoConverter.convertRecetaToCreateRecetaDto(Receta.builder()
-                .id(receta.getId())
+
                 .ingredientes(receta.getIngredientes())
                 .preparacion(receta.getPreparacion())
                 .tiempoCocinar(receta.getTiempoCocinar())
-                //.recetaCategoria(receta.getRecetaCategoria())
+                .recetaCategoria(receta.getRecetaCategoria())
                 .fotoReceta(uriScale)
                 .user(user)
                 .build()
@@ -127,8 +122,8 @@ public class RecetaServiceImpl implements RecetaService {
             recetaEncontrada.setIngredientes(receta.get().getIngredientes());
             recetaEncontrada.setPreparacion(receta.get().getPreparacion());
             recetaEncontrada.setTiempoCocinar(receta.get().getTiempoCocinar());
-            //recetaEncontrada.setRecetaCategoria(receta.get().getRecetaCategoria());
-            recetaEncontrada.setUser(receta.get().getUser());
+            recetaEncontrada.setRecetaCategoria(receta.get().getRecetaCategoria());
+
             recetaEncontrada.setFotoReceta(uri3);
 
             return recetaRepository.save(recetaEncontrada);
@@ -161,13 +156,20 @@ public class RecetaServiceImpl implements RecetaService {
           }
     }
 
-   //@Override
-   //public List<Receta> loadRecetaByCategoria(RecetaCategoria recetaCategoria) {
-   //     return recetaService.loadRecetaByCategoria(recetaCategoria);
-   //}
 
 
+    @Override
+    public List<Receta> findRecetaByCategoriaOtros(RecetaCategoria recetaCategoria) {
+        return recetaRepository.findRecetaByCategoriaOtros(recetaCategoria);
+    }
 
+    @Override
+    public List<Receta> findRecetaByCategoriaDulces(RecetaCategoria recetaCategoria) {
+        return recetaRepository.findRecetaByCategoriaDulces(recetaCategoria);
+    }
 
-
+    @Override
+    public List<Receta> findRecetaByCategoriaPastas(RecetaCategoria recetaCategoria) {
+        return recetaRepository.findRecetaByCategoriaPastas(recetaCategoria);
+    }
 }

@@ -4,14 +4,17 @@ import com.salesianos.triana.easycook.EasyCook.dto.CreateRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.GetRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.RecetaDtoConverter;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListEntityNotFoundException;
+import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.SingleEntityNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.models.Receta;
 import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
 import com.salesianos.triana.easycook.EasyCook.repositorios.RecetaRepository;
 import com.salesianos.triana.easycook.EasyCook.services.RecetaService;
 import com.salesianos.triana.easycook.EasyCook.services.StorageService;
+import com.salesianos.triana.easycook.EasyCook.services.base.BaseService;
 import com.salesianos.triana.easycook.EasyCook.users.dto.CreateUserDto;
 import com.salesianos.triana.easycook.EasyCook.users.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,50 +26,28 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class RecetaServiceImpl implements RecetaService {
+@RequiredArgsConstructor
+public class RecetaServiceImpl extends BaseService<Receta,Long,RecetaRepository> implements RecetaService {
+
 
 
     @Autowired
-    private  StorageService storageService;
+    private StorageService storageService;
     @Autowired
-    private  RecetaRepository recetaRepository;
+    private RecetaRepository recetaRepository;
     @Autowired
     private RecetaDtoConverter recetaDtoConverter;
 
 
 
 
-    @Override
-    public List<GetRecetaDto> findAll() {
-        List<Receta> recetaList = recetaRepository.findAll();
 
-        if (recetaList.isEmpty()){
-            throw new ListEntityNotFoundException(Receta.class);
 
-        }else {
-            List<GetRecetaDto> result = recetaList.stream()
-                    .map(recetaDtoConverter::getRecetaToRecetaDto)
-                    .collect(Collectors.toList());
-            return result;
-        }
-    }
 
-    @Override
-    public GetRecetaDto findOne(Long id, User user) {
-        Optional<Receta> receta = recetaRepository.findById(id);
-
-        if(receta.isEmpty()){
-            throw new SingleEntityNotFoundException(id,Receta.class);
-
-        }else {
-            return recetaDtoConverter.getRecetaToRecetaDto(receta.get());
-
-        }
-
-    }
 
     @Override
     public CreateRecetaDto saveReceta(CreateRecetaDto createRecetaDto, MultipartFile file3, User user) {
@@ -106,34 +87,45 @@ public class RecetaServiceImpl implements RecetaService {
     }
 
     @Override
-    public Receta editReceta(Long id, CreateRecetaDto createRecetaDto, MultipartFile file3, CreateUserDto createUserDto) {
+    public Receta editReceta(Long id, Receta receta, MultipartFile file3, User user) throws ListNotFoundException {
 
-        Optional<Receta> receta = recetaRepository.findById(id);
-        String filename = storageService.store(file3);
+        Optional<Receta> receta1 = recetaRepository.findById(id);
 
-        String uri3 = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/recetas/")
-                .path(filename)
-                .toUriString();
+        if(receta1.isPresent()) {
 
-        if(receta.isPresent()){
-            Receta recetaEncontrada = receta.get();
-            recetaEncontrada.setId(receta.get().getId());
-            recetaEncontrada.setIngredientes(receta.get().getIngredientes());
-            recetaEncontrada.setPreparacion(receta.get().getPreparacion());
-            recetaEncontrada.setTiempoCocinar(receta.get().getTiempoCocinar());
-            recetaEncontrada.setRecetaCategoria(receta.get().getRecetaCategoria());
+
+            storageService.deleteFile(receta1.get().getFotoReceta());
+            storageService.deleteFile(receta1.get().getIngredientes());
+            storageService.deleteFile(receta1.get().getPreparacion());
+            storageService.deleteFile(receta1.get().getTiempoCocinar());
+            storageService.deleteFile(receta1.get().getRecetaCategoria().toString());
+            
+            String filename = storageService.store(file3);
+
+            String uri3 = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/recetas/")
+                    .path(filename)
+                    .toUriString();
+
+
+            Receta recetaEncontrada = receta1.get();
+            recetaEncontrada.setId(receta1.get().getId());
+            recetaEncontrada.setIngredientes(receta1.get().getIngredientes());
+            recetaEncontrada.setPreparacion(receta1.get().getPreparacion());
+            recetaEncontrada.setTiempoCocinar(receta1.get().getTiempoCocinar());
+            recetaEncontrada.setRecetaCategoria(receta1.get().getRecetaCategoria());
 
             recetaEncontrada.setFotoReceta(uri3);
 
             return recetaRepository.save(recetaEncontrada);
-
-
-
-
         }else {
-            throw new SingleEntityNotFoundException(id,Receta.class);
+            throw new ListNotFoundException("No existe la receta que quieres editar");
         }
+
+
+
+
+
     }
 
     @Override

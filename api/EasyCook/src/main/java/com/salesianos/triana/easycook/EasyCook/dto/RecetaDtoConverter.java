@@ -2,6 +2,7 @@ package com.salesianos.triana.easycook.EasyCook.dto;
 
 import com.salesianos.triana.easycook.EasyCook.models.Receta;
 import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
+import com.salesianos.triana.easycook.EasyCook.users.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,7 @@ public class RecetaDtoConverter {
 
     }
 
-    public GetRecetaDto getRecetaToRecetaDto(Receta r){
+    public GetRecetaDto getRecetaToRecetaDto(Receta r, User user){
 
         return GetRecetaDto.builder()
 

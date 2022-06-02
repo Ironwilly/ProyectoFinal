@@ -3,11 +3,10 @@ package com.salesianos.triana.easycook.EasyCook.controller;
 import com.salesianos.triana.easycook.EasyCook.dto.CreateRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.GetRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.RecetaDtoConverter;
+import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.models.Receta;
 import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
-import com.salesianos.triana.easycook.EasyCook.repositorios.RecetaRepository;
 import com.salesianos.triana.easycook.EasyCook.services.impl.RecetaServiceImpl;
-import com.salesianos.triana.easycook.EasyCook.users.dto.CreateUserDto;
 import com.salesianos.triana.easycook.EasyCook.users.model.User;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,9 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/receta")
 public class RecetaController {
 
 
@@ -43,7 +44,7 @@ public class RecetaController {
                     content = @Content),
     })
 
-    @PostMapping("/receta")
+    @PostMapping("/")
     public ResponseEntity<?> create(@RequestPart("receta") CreateRecetaDto createRecetaDto, @RequestPart("recetaImagen") MultipartFile file3,
                                     @AuthenticationPrincipal User user) throws IOException {
 
@@ -51,32 +52,38 @@ public class RecetaController {
 
     }
 
-    @PutMapping("/receta/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<GetRecetaDto> edit(@PathVariable Long id, @RequestPart("receta") CreateRecetaDto createRecetaDto, @RequestPart("recetaImagen") MultipartFile file3,
-                                             @AuthenticationPrincipal CreateUserDto createUserDto) {
+                                             @AuthenticationPrincipal User user) throws IOException, ListNotFoundException {
 
-        Receta newReceta = recetaService.editReceta(id, createRecetaDto, file3, createUserDto);
-        GetRecetaDto newRecetaDto = recetaDtoConverter.getRecetaToRecetaDto(newReceta);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newRecetaDto);
+        Receta newReceta = recetaDtoConverter.convertRecetaToCreateRecetaDto(createRecetaDto,file3);
+        Receta ActualReceta = recetaService.editReceta(id,newReceta,file3,user);
+        GetRecetaDto recetaDto = recetaDtoConverter.getRecetaToRecetaDto(ActualReceta,user);
+        return ResponseEntity.ok().body(recetaDto);
     }
 
-    @GetMapping("/receta/all")
+    @GetMapping("/all")
     public ResponseEntity<?> listadoCompleto() {
         return ResponseEntity.ok(recetaService.findAll());
     }
 
-    @DeleteMapping("/receta/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> removeRecetaById(@PathVariable Long id, @AuthenticationPrincipal User user) throws IOException {
 
         recetaService.removeRecetaById(id, user);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/receta/{id}")
-    public ResponseEntity<?> findOne(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    @GetMapping("/id/{id}")
+    public ResponseEntity<GetRecetaDto> findOne(@PathVariable Long id,@AuthenticationPrincipal User user) {
 
-        GetRecetaDto recetaDto = recetaService.findOne(id, user);
-        return ResponseEntity.ok().body(recetaDto);
+        Optional<Receta> receta = recetaService.findById(id);
+        if(receta.isPresent()){
+            return ResponseEntity.ok().body(recetaDtoConverter.getRecetaToRecetaDto(receta.get(), user));
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @GetMapping("/categoria")

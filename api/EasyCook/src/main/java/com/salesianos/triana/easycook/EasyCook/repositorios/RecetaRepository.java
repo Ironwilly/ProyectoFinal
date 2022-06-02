@@ -11,10 +11,7 @@ import java.util.List;
 
 public interface RecetaRepository extends JpaRepository <Receta,Long> {
 
-    @Query (value = """
-            SELECT * FROM Receta
-            """,nativeQuery = true)
-    List<Receta> findAll();
+
 
 
     @Query (value = """

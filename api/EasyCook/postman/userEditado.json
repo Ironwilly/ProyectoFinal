@@ -1,0 +1,12 @@
+{	
+    "nombre" : "Stan",
+    "apellidos" : "Marsh",
+    "nick" : "StanMarsh",
+    "ciudad" : "Huelva",
+    "email" : "Stan@gmail.com",
+    "password" : "12345678",
+    "repetirPassword" : "12345678"
+
+    }
+
+

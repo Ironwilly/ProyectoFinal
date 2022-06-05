@@ -5,6 +5,13 @@ import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
 import com.salesianos.triana.easycook.EasyCook.users.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+import java.io.IOException;
 
 
 @Component
@@ -40,6 +47,22 @@ public class RecetaDtoConverter {
                 .user(r.getUser())
                 .recetaCategoria(r.getRecetaCategoria())
                 .build();
+    }
+
+    public Receta createRecetaDtoToReceta(CreateRecetaDto createRecetaDto) throws IOException{
+
+
+
+        return Receta.builder()
+                .ingredientes(createRecetaDto.getIngredientes())
+                .preparacion(createRecetaDto.getPreparacion())
+                .tiempoCocinar(createRecetaDto.getTiempoCocinar())
+                .fotoReceta(createRecetaDto.getFotoReceta())
+                .recetaCategoria(RecetaCategoria.valueOf(createRecetaDto.getRecetaCategoria()))
+                .build();
+
+
+
     }
 }
 

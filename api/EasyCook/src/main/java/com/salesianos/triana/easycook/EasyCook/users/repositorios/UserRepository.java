@@ -18,11 +18,13 @@ public interface UserRepository extends JpaRepository <User, UUID> {
 
     Optional<User> findFirstByEmail(String email);
 
-    Optional<User> findFirstByNick (String nick);
-
     List<User> findByRol (UserRole rol);
 
     Optional<User> findById(UUID id);
+
+    boolean existsByNick(String nick);
+
+
 
 
 }

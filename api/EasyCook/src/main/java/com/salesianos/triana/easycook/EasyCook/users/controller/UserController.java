@@ -12,12 +12,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,5 +50,10 @@ public class UserController {
         }else {
             return ResponseEntity.ok(userDtoConverter.convertUserToUserDto(userSaved));
         }
+    }
+
+    @PutMapping("profile/me")
+    public ResponseEntity<Optional<GetUserDto>> editarPerfil (@AuthenticationPrincipal User user,@RequestPart("user") CreateUserDto createUserDto,@RequestPart("avatar")MultipartFile file1,@RequestPart("fondo")MultipartFile file2) throws Exception{
+        return ResponseEntity.ok(userService.editUser(createUserDto,user,file1,file2));
     }
 }

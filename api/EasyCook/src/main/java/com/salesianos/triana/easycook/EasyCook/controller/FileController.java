@@ -62,7 +62,7 @@ public class FileController {
                 .path(name2)
                 .toUriString();
         String uri3 = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/receta/")
+                .path("/recetas/")
                 .path(name3)
                 .toUriString();
 

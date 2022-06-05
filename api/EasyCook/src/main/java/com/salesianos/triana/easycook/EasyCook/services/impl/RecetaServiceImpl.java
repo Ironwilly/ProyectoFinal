@@ -87,41 +87,52 @@ public class RecetaServiceImpl extends BaseService<Receta,Long,RecetaRepository>
     }
 
     @Override
-    public Receta editReceta(Long id, Receta receta, MultipartFile file3, User user) throws ListNotFoundException {
+    public Optional<GetRecetaDto> editReceta(Long id, CreateRecetaDto createRecetaDto, MultipartFile file3, User user) throws ListNotFoundException {
 
-        Optional<Receta> receta1 = recetaRepository.findById(id);
+        Optional<Receta> data = recetaRepository.findById(id);
 
-        if(receta1.isPresent()) {
+        if(data.isPresent()) {
 
+            String name2 = StringUtils.cleanPath(String.valueOf(data.get().getFotoReceta())).replace("http://localhost:8080/recetas/", "")
+                    .replace("%20", " ");
 
-            storageService.deleteFile(receta1.get().getFotoReceta());
-            storageService.deleteFile(receta1.get().getIngredientes());
-            storageService.deleteFile(receta1.get().getPreparacion());
-            storageService.deleteFile(receta1.get().getTiempoCocinar());
-            storageService.deleteFile(receta1.get().getRecetaCategoria().toString());
-            
-            String filename = storageService.store(file3);
+            Path pa = storageService.load(name2);
+
+            String filename = StringUtils.cleanPath(String.valueOf(pa)).replace("http://localhost:8080/recetas/", "")
+                    .replace("%20", " ");
+
+            Path path = Paths.get(filename);
+
+            storageService.deleteFile(path.toString());
+
+            String original = storageService.store(file3);
+
 
             String uri3 = ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/recetas/")
-                    .path(filename)
+                    .path(original)
                     .toUriString();
 
 
-            Receta recetaEncontrada = receta1.get();
-            recetaEncontrada.setId(receta1.get().getId());
-            recetaEncontrada.setIngredientes(receta1.get().getIngredientes());
-            recetaEncontrada.setPreparacion(receta1.get().getPreparacion());
-            recetaEncontrada.setTiempoCocinar(receta1.get().getTiempoCocinar());
-            recetaEncontrada.setRecetaCategoria(receta1.get().getRecetaCategoria());
 
-            recetaEncontrada.setFotoReceta(uri3);
 
-            return recetaRepository.save(recetaEncontrada);
+            return data.map(newReceta ->{
+
+                newReceta.setIngredientes(createRecetaDto.getIngredientes());
+                newReceta.setPreparacion(createRecetaDto.getPreparacion());
+                newReceta.setTiempoCocinar(createRecetaDto.getTiempoCocinar());
+                newReceta.setRecetaCategoria(RecetaCategoria.valueOf(createRecetaDto.getRecetaCategoria()));
+                newReceta.setFotoReceta(uri3);
+                recetaRepository.save(newReceta);
+                return  recetaDtoConverter.getRecetaToRecetaDto(newReceta,user);
+
+
+
+
+        });
         }else {
             throw new ListNotFoundException("No existe la receta que quieres editar");
         }
-
 
 
 

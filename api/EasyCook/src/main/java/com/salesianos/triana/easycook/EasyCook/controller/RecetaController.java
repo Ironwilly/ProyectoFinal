@@ -53,13 +53,9 @@ public class RecetaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GetRecetaDto> edit(@PathVariable Long id, @RequestPart("receta") CreateRecetaDto createRecetaDto, @RequestPart("recetaImagen") MultipartFile file3,
+    public ResponseEntity<Optional<GetRecetaDto>> edit(@PathVariable Long id, @RequestPart("receta") CreateRecetaDto createRecetaDto, @RequestPart("recetaImagen") MultipartFile file3,
                                              @AuthenticationPrincipal User user) throws IOException, ListNotFoundException {
-
-        Receta newReceta = recetaDtoConverter.convertRecetaToCreateRecetaDto(createRecetaDto,file3);
-        Receta ActualReceta = recetaService.editReceta(id,newReceta,file3,user);
-        GetRecetaDto recetaDto = recetaDtoConverter.getRecetaToRecetaDto(ActualReceta,user);
-        return ResponseEntity.ok().body(recetaDto);
+ return ResponseEntity.status(HttpStatus.OK).body(recetaService.editReceta(id,createRecetaDto,file3,user));
     }
 
     @GetMapping("/all")

@@ -1,5 +1,6 @@
 package com.salesianos.triana.easycook.EasyCook.users.controller;
 
+import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.services.StorageService;
 import com.salesianos.triana.easycook.EasyCook.users.dto.CreateUserDto;
 import com.salesianos.triana.easycook.EasyCook.users.dto.GetUserDto;
@@ -53,7 +54,7 @@ public class UserController {
     }
 
     @PutMapping("profile/me")
-    public ResponseEntity<Optional<GetUserDto>> editarPerfil (@AuthenticationPrincipal User user,@RequestPart("user") CreateUserDto createUserDto,@RequestPart("avatar")MultipartFile file1,@RequestPart("fondo")MultipartFile file2) throws Exception{
+    public ResponseEntity<Optional<GetUserDto>> editarPerfil (@AuthenticationPrincipal User user,@RequestPart("user") CreateUserDto createUserDto,@RequestPart("avatar")MultipartFile file1,@RequestPart("fondo")MultipartFile file2) throws  ListNotFoundException {
         return ResponseEntity.ok(userService.editUser(createUserDto,user,file1,file2));
     }
 }

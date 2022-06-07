@@ -1,5 +1,6 @@
 package com.salesianos.triana.easycook.EasyCook.users.services.impl;
 
+import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.SingleEntityNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.services.StorageService;
 import com.salesianos.triana.easycook.EasyCook.services.base.BaseService;
@@ -110,62 +111,71 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
         }
     }
 
-    public Optional<GetUserDto> editUser(CreateUserDto createUserDto, User user, MultipartFile file1, MultipartFile file2) {
+    public Optional<GetUserDto> editUser(CreateUserDto createUserDto, User user, MultipartFile file1, MultipartFile file2) throws ListNotFoundException{
 
         Optional<User> data = repositorio.findById(user.getId());
-        String name = StringUtils.cleanPath(String.valueOf(data.get().getAvatar())).replace("http://localhost:8080/avatar/", "")
-                .replace("%20", " ");
-        Path pa = storageService.load(name);
 
-        String filename1 = StringUtils.cleanPath(String.valueOf(pa)).replace("http://localhost:8080/avatar/", "")
-                .replace("%20", " ");
-        Path path = Paths.get(filename1);
+        if (data.isPresent()) {
+            String name = StringUtils.cleanPath(String.valueOf(data.get().getAvatar())).replace("http://localhost:8080/avatar/", "")
+                    .replace("%20", " ");
+            Path pa = storageService.load(name);
 
-        storageService.deleteFile(path.toString());
+            String filename1 = StringUtils.cleanPath(String.valueOf(pa)).replace("http://localhost:8080/avatar/", "")
+                    .replace("%20", " ");
+            Path path = Paths.get(filename1);
 
+            storageService.deleteFile(path.toString());
 
-        String uri1 = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/avatar/")
-                .path(filename1)
-                .toUriString();
+            String original = storageService.store(file1);
 
-
-        String name2 = StringUtils.cleanPath(String.valueOf(data.get().getFondo())).replace("http://localhost:8080/fondo/", "")
-                .replace("%20", " ");
-        Path pa2 = storageService.load(name2);
-
-        String filename2 = StringUtils.cleanPath(String.valueOf(pa2)).replace("http://localhost:8080/fondo/", "")
-                .replace("%20", " ");
-        Path path2 = Paths.get(filename1);
-
-        storageService.deleteFile(path2.toString());
-
-        String uri2 = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/fondo/")
-                .path(filename2)
-                .toUriString();
+            String uri1 = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/avatar/")
+                    .path(original)
+                    .toUriString();
 
 
-        return data.map(m -> {
+            String name2 = StringUtils.cleanPath(String.valueOf(data.get().getFondo())).replace("http://localhost:8080/fondo/", "")
+                    .replace("%20", " ");
+            Path pa2 = storageService.load(name2);
 
-            m.setNombre(createUserDto.getNombre());
-            m.setApellidos(createUserDto.getApellidos());
-            m.setNick(createUserDto.getNick());
-            m.setCiudad(createUserDto.getCiudad());
-            m.setEmail(createUserDto.getEmail());
-            m.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
-            m.setAvatar(uri1);
-            m.setFondo(uri2);
-            m.setRol(UserRole.USUARIO);
-            userRepository.save(m);
-            return userDtoConverter.convertUserToUserDto(m);
+            String filename2 = StringUtils.cleanPath(String.valueOf(pa2)).replace("http://localhost:8080/fondo/", "")
+                    .replace("%20", " ");
+            Path path2 = Paths.get(filename2);
+
+            storageService.deleteFile(path2.toString());
+
+            String original2 = storageService.store(file2);
+
+            String uri2 = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/fondo/")
+                    .path(original2)
+                    .toUriString();
 
 
-        });
+            return data.map(m -> {
+
+                m.setId(user.getId());
+                m.setNombre(createUserDto.getNombre());
+                m.setApellidos(createUserDto.getApellidos());
+                m.setNick(createUserDto.getNick());
+                m.setCiudad(createUserDto.getCiudad());
+                m.setEmail(createUserDto.getEmail());
+                m.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
+                m.setAvatar(uri1);
+                m.setFondo(uri2);
+                m.setRol(UserRole.USUARIO);
+                userRepository.save(m);
+                return userDtoConverter.convertUserToUserDto(m);
 
 
+            });
+
+
+        } else {
+            throw new ListNotFoundException("No existe el usuario que quieres editar");
+
+        }
     }
-
 
     public List<GetUserDto> listUserToListGetUserDto(List<User> users) {
         List<GetUserDto> getUserDtos = new ArrayList<>();

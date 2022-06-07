@@ -55,10 +55,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/upload").anonymous()
-                .antMatchers(HttpMethod.GET, "/me").authenticated()
-                .antMatchers(HttpMethod.PUT, "/profile/me").authenticated()
                 .antMatchers(HttpMethod.POST, "/auth/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login").anonymous()
+                .antMatchers(HttpMethod.GET, "/me").authenticated()
+                .antMatchers(HttpMethod.PUT, "/profile/me").permitAll()
                 .antMatchers(HttpMethod.GET, "/categoria").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated();

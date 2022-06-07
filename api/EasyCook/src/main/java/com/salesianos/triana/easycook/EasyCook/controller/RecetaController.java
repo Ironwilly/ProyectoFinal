@@ -4,6 +4,7 @@ import com.salesianos.triana.easycook.EasyCook.dto.CreateRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.GetRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.RecetaDtoConverter;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListNotFoundException;
+import com.salesianos.triana.easycook.EasyCook.errors.exceptions.SingleEntityNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.models.Receta;
 import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
 import com.salesianos.triana.easycook.EasyCook.services.impl.RecetaServiceImpl;
@@ -64,9 +65,9 @@ public class RecetaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> removeRecetaById(@PathVariable Long id, @AuthenticationPrincipal User user) throws IOException {
+    public ResponseEntity<?> removeRecetaById(@PathVariable Long id) throws SingleEntityNotFoundException {
 
-        recetaService.removeRecetaById(id, user);
+        recetaService.removeRecetaById(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -3,6 +3,7 @@ package com.salesianos.triana.easycook.EasyCook.services;
 import com.salesianos.triana.easycook.EasyCook.dto.CreateRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.GetRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListNotFoundException;
+import com.salesianos.triana.easycook.EasyCook.errors.exceptions.SingleEntityNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.models.Receta;
 import com.salesianos.triana.easycook.EasyCook.models.RecetaCategoria;
 import com.salesianos.triana.easycook.EasyCook.repositorios.RecetaRepository;
@@ -21,7 +22,7 @@ public interface RecetaService  {
 
     CreateRecetaDto saveReceta(CreateRecetaDto createRecetaDto, MultipartFile file3, User user);
     Optional<GetRecetaDto> editReceta(Long id, CreateRecetaDto createRecetaDto, MultipartFile file3, User user) throws ListNotFoundException;
-    void removeRecetaById(Long id,User user) throws IOException;
+    void removeRecetaById(Long id) throws SingleEntityNotFoundException;
     List<Receta> findRecetaByCategoriaOtros(RecetaCategoria recetaCategoria);
     List<Receta> findRecetaByCategoriaDulces(RecetaCategoria recetaCategoria);
     List<Receta> findRecetaByCategoriaPastas(RecetaCategoria recetaCategoria);

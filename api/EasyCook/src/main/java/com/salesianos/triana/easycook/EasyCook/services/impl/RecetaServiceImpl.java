@@ -140,7 +140,7 @@ public class RecetaServiceImpl extends BaseService<Receta,Long,RecetaRepository>
     }
 
     @Override
-    public void removeRecetaById(Long id, User user) throws IOException {
+    public void removeRecetaById(Long id) throws SingleEntityNotFoundException {
 
         Optional<Receta> data = recetaRepository.findById(id);
 

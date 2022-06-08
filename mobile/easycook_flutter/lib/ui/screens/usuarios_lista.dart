@@ -18,7 +18,7 @@ class _UsuariosListaState extends State<UsuariosLista> {
       body: Column(
         children: [
           Container(
-            height: 270,
+            height: 70,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/logoEasyCook.jpg'),

@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easycook_flutter/ui/screens/busqueda_receta.dart';
 import 'package:easycook_flutter/ui/screens/receta_item.dart';
 import 'package:easycook_flutter/ui/screens/usuario_recientes.dart';
+import 'package:easycook_flutter/ui/screens/usuarios_lista.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -22,28 +24,107 @@ class _RecetasState extends State<Recetas> {
         title: const Text('Sugerencias'),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.add_alert),
-            tooltip: 'Recetas',
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('This is a snackbar')));
-            },
-          ),
-          IconButton(
             icon: const Icon(Icons.navigate_next),
-            tooltip: 'Go to the next page',
+            tooltip: 'Go to the sugerencias',
             onPressed: () {
               Navigator.push(context, MaterialPageRoute<void>(
                 builder: (BuildContext context) {
                   return Scaffold(
-                    appBar: AppBar(
-                      title: const Text('Next page'),
-                    ),
-                    body: const Center(
-                      child: Text(
-                        'This is the next page',
-                        style: TextStyle(fontSize: 24),
-                      ),
+                    backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+                    body: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          margin:
+                              EdgeInsets.only(left: 25, right: 25, top: 100),
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      child: BusquedaReceta(),
+                                      type: PageTransitionType.fade));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: StadiumBorder(),
+                                primary: Color.fromRGBO(255, 255, 255, 1),
+                                onPrimary: Color.fromRGBO(0, 0, 0, 1),
+                                elevation: 5,
+                                shadowColor: Color.fromRGBO(0, 0, 0, 1),
+                                side: BorderSide(
+                                    color: Color.fromRGBO(0, 0, 0, 0.3),
+                                    width: 1)),
+                            child: const Text(
+                              'Buscar por recetas',
+                              style: TextStyle(fontSize: 25),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 25, right: 25, top: 50),
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BusquedaReceta()),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: StadiumBorder(),
+                                primary: Color.fromRGBO(255, 255, 255, 1),
+                                onPrimary: Color.fromRGBO(0, 0, 0, 1),
+                                elevation: 5,
+                                shadowColor: Color.fromRGBO(0, 0, 0, 1),
+                                side: BorderSide(
+                                    color: Color.fromRGBO(0, 0, 0, 0.3),
+                                    width: 1)),
+                            child: const Text('Buscar por ingredientes',
+                                style: TextStyle(fontSize: 25)),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 25, right: 25, top: 50),
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UsuariosLista()),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                                shape: StadiumBorder(),
+                                primary: Color.fromRGBO(255, 255, 255, 1),
+                                onPrimary: Color.fromRGBO(0, 0, 0, 1),
+                                elevation: 5,
+                                shadowColor: Color.fromRGBO(0, 0, 0, 1),
+                                side: BorderSide(
+                                    color: Color.fromRGBO(0, 0, 0, 0.3),
+                                    width: 1)),
+                            child: const Text('Buscar por usuarios',
+                                style: TextStyle(fontSize: 25)),
+                          ),
+                        ),
+                        Container(
+                          height: 270,
+                          margin: EdgeInsets.only(top: 100),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image:
+                                  AssetImage('assets/images/logoEasyCook.jpg'),
+                              fit: BoxFit.contain,
+                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },

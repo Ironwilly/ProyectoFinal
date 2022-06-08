@@ -71,7 +71,7 @@ class _EditarRecetaState extends State<EditarReceta> {
             ],
           ),
           Container(
-            height: 398,
+            height: 450,
             child: ListView(
                 padding: const EdgeInsets.only(left: 30, right: 30),
                 scrollDirection: Axis.vertical,
@@ -99,15 +99,15 @@ class _EditarRecetaState extends State<EditarReceta> {
                   ),
                   Container(
                     margin: const EdgeInsets.only(
-                        left: 1, right: 1, top: 10, bottom: 30),
+                        left: 1, right: 1, top: 20, bottom: 10),
                     width: MediaQuery.of(context).size.width,
-                    height: 130,
+                    height: 70,
                     child: const SizedBox(
                       child: TextField(
                         decoration: InputDecoration(
-                            labelText: 'Agrega los ingredientes',
+                            labelText: 'Nombre de la receta a editar',
                             border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(vertical: 50)),
+                            contentPadding: EdgeInsets.symmetric(vertical: 10)),
                         style: TextStyle(fontSize: 20),
                         maxLines: 2,
                         minLines: 1,
@@ -115,17 +115,34 @@ class _EditarRecetaState extends State<EditarReceta> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left: 1, right: 1),
+                    margin:
+                        const EdgeInsets.only(left: 1, right: 1, bottom: 10),
                     width: MediaQuery.of(context).size.width,
-                    height: 230,
+                    height: 150,
                     child: const SizedBox(
                       child: TextField(
                         decoration: InputDecoration(
-                            labelText: 'Modo de preparación',
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(vertical: 80)),
+                          labelText: 'Agrega los ingredientes',
+                          border: OutlineInputBorder(),
+                        ),
                         style: TextStyle(fontSize: 20),
-                        maxLines: 4,
+                        maxLines: 10,
+                        minLines: 1,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 1, right: 1),
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    child: const SizedBox(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Modo de preparación',
+                          border: OutlineInputBorder(),
+                        ),
+                        style: TextStyle(fontSize: 20),
+                        maxLines: 6,
                         minLines: 1,
                       ),
                     ),

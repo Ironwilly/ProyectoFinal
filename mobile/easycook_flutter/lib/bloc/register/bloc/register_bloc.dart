@@ -1,8 +1,6 @@
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
-import 'package:easycook_flutter/models/registrer_dto.dart';
-import 'package:easycook_flutter/models/registrer_response.dart';
+import 'package:easycook_flutter/models/register_dto.dart';
+import 'package:easycook_flutter/models/register_response.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';

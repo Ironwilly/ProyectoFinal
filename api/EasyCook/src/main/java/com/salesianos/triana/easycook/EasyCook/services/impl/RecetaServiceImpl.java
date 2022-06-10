@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -139,6 +141,7 @@ public class RecetaServiceImpl extends BaseService<Receta,Long,RecetaRepository>
 
     }
 
+    @Transactional
     @Override
     public void removeRecetaById(Long id) throws SingleEntityNotFoundException {
 
@@ -155,7 +158,8 @@ public class RecetaServiceImpl extends BaseService<Receta,Long,RecetaRepository>
             Path path = Paths.get(filename);
 
             storageService.deleteFile(path.toString());
-            recetaRepository.deleteById(id);
+            //recetaRepository.deleteById(id);
+            recetaRepository.deleteRecetaById(id);
           }
     }
 

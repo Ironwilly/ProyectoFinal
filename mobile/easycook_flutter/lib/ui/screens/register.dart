@@ -41,7 +41,7 @@ class _RegisterState extends State<Register> {
   TextEditingController repetirPassword = TextEditingController();
 
   late Future<SharedPreferences> _prefs;
-  final String uploadUrl = 'http://localhost:8080/auth/register';
+  final String uploadUrl = 'http://10.0.2.2:8080/auth/register';
   String pathAvatar = "";
   String pathFondo = "";
 
@@ -317,20 +317,20 @@ class _RegisterState extends State<Register> {
                         ),
                         BlocConsumer<ImageBloc, ImageState>(
                           listenWhen: (context, state) {
-                            return state is ImageSelectedSuccessState;
+                            return state is ImageSelectedSuccessState2;
                           },
                           listener: (context, state) {},
                           buildWhen: (context, state) {
                             return state is ImageState ||
-                                state is ImageSelectedSuccessState;
+                                state is ImageSelectedSuccessState2;
                           },
                           builder: (context, state) {
-                            if (state is ImageSelectedSuccessState) {
-                              pathFondo = state.pickedFile.path;
-                              print('PATH ${state.pickedFile.path}');
+                            if (state is ImageSelectedSuccessState2) {
+                              pathFondo = state.pickedFile2.path;
+                              print('PATH ${state.pickedFile2.path}');
                               return Column(children: [
                                 Image.file(
-                                  File(state.pickedFile.path),
+                                  File(state.pickedFile2.path),
                                   height: 100,
                                 ),
                                 ElevatedButton(

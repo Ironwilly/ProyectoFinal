@@ -1,13 +1,12 @@
 import 'dart:io';
+import 'package:easycook_flutter/bloc/bloc/fondoimagen_bloc.dart';
 import 'package:easycook_flutter/bloc/image_bloc/bloc/image_bloc.dart';
 import 'package:easycook_flutter/bloc/register/bloc/register_bloc.dart';
-import 'package:easycook_flutter/models/login_dto.dart';
 import 'package:easycook_flutter/models/register_dto.dart';
 import 'package:easycook_flutter/models/register_response.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository_imp.dart';
 import 'package:easycook_flutter/ui/screens/login.dart';
-import 'package:easycook_flutter/ui/screens/menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,6 +62,16 @@ class _RegisterState extends State<Register> {
           BlocProvider(create: (context) {
             return ImageBloc();
           }),
+          BlocProvider(
+            create: (context) {
+              return RegisterBloc(authRepository);
+            },
+          ),
+          BlocProvider(
+            create: (context) {
+              return FondoimagenBloc();
+            },
+          ),
           BlocProvider(
             create: (context) {
               return RegisterBloc(authRepository);
@@ -236,6 +245,23 @@ class _RegisterState extends State<Register> {
                       color: Color.fromRGBO(255, 255, 255, 1),
                       child: TextFormField(
                         decoration: const InputDecoration(
+                          hintText: 'Email',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.contains('@')) {
+                            return 'Please enter @';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      width: 300,
+                      height: 40,
+                      margin: const EdgeInsets.only(top: 20),
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
                           fillColor: Colors.white,
                           hintText: 'Contraseña',
                         ),
@@ -250,7 +276,7 @@ class _RegisterState extends State<Register> {
                     Container(
                       width: 300,
                       height: 40,
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 20, bottom: 15),
                       color: Color.fromRGBO(255, 255, 255, 1),
                       child: TextFormField(
                         decoration: const InputDecoration(
@@ -284,7 +310,7 @@ class _RegisterState extends State<Register> {
                               return Column(children: [
                                 Image.file(
                                   File(state.pickedFile.path),
-                                  height: 100,
+                                  height: 50,
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
@@ -315,23 +341,23 @@ class _RegisterState extends State<Register> {
                                     )));
                           },
                         ),
-                        BlocConsumer<ImageBloc, ImageState>(
+                        BlocConsumer<FondoimagenBloc, FondoimagenState>(
                           listenWhen: (context, state) {
-                            return state is ImageSelectedSuccessState2;
+                            return state is FondoSelectedSuccessState;
                           },
                           listener: (context, state) {},
                           buildWhen: (context, state) {
-                            return state is ImageState ||
-                                state is ImageSelectedSuccessState2;
+                            return state is FondoimagenState ||
+                                state is FondoSelectedSuccessState;
                           },
                           builder: (context, state) {
-                            if (state is ImageSelectedSuccessState2) {
-                              pathFondo = state.pickedFile2.path;
-                              print('PATH ${state.pickedFile2.path}');
+                            if (state is FondoSelectedSuccessState) {
+                              pathFondo = state.pickedFile.path;
+                              print('PATH ${state.pickedFile.path}');
                               return Column(children: [
                                 Image.file(
-                                  File(state.pickedFile2.path),
-                                  height: 100,
+                                  File(state.pickedFile.path),
+                                  height: 50,
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
@@ -351,8 +377,8 @@ class _RegisterState extends State<Register> {
                                         primary:
                                             Color.fromRGBO(200, 200, 200, 1)),
                                     onPressed: () {
-                                      BlocProvider.of<ImageBloc>(context).add(
-                                          const SelectImageEvent(
+                                      BlocProvider.of<FondoimagenBloc>(context)
+                                          .add(const SelectFondoimagenEvent(
                                               ImageSource.gallery));
                                     },
                                     child: const Text(

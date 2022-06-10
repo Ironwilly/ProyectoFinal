@@ -23,15 +23,5 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
     } catch (e) {
       emit(const ImageSelectedErrorState('Error en la imagen seleccionada'));
     }
-    try {
-      final XFile? pickedFile2 = await _picker.pickImage(source: event.source);
-      if (pickedFile2 != null) {
-        emit(ImageSelectedSuccessState(pickedFile2));
-      } else {
-        emit(const ImageSelectedErrorState('Error en la imagen seleccionada'));
-      }
-    } catch (e) {
-      emit(const ImageSelectedErrorState('Error en la imagen seleccionada'));
-    }
   }
 }

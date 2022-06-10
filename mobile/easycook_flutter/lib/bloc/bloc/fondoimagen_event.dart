@@ -8,10 +8,10 @@ abstract class FondoimagenEvent extends Equatable {
 }
 
 class SelectFondoimagenEvent extends FondoimagenEvent {
-  final ImageSource source2;
+  final ImageSource source;
 
-  const SelectFondoimagenEvent(this.source2);
+  const SelectFondoimagenEvent(this.source);
 
   @override
-  List<Object> get props => [source2];
+  List<Object> get props => [source];
 }

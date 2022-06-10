@@ -66,6 +66,16 @@ class _RegisterState extends State<Register> {
             create: (context) {
               return RegisterBloc(authRepository);
             },
+          ),
+          BlocProvider(
+            create: (context) {
+              return FondoimagenBloc();
+            },
+          ),
+          BlocProvider(
+            create: (context) {
+              return RegisterBloc(authRepository);
+            },
           )
         ],
         child: _createBody(context),
@@ -266,7 +276,7 @@ class _RegisterState extends State<Register> {
                     Container(
                       width: 300,
                       height: 40,
-                      margin: EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 20, bottom: 15),
                       color: Color.fromRGBO(255, 255, 255, 1),
                       child: TextFormField(
                         decoration: const InputDecoration(
@@ -300,7 +310,7 @@ class _RegisterState extends State<Register> {
                               return Column(children: [
                                 Image.file(
                                   File(state.pickedFile.path),
-                                  height: 100,
+                                  height: 50,
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
@@ -332,22 +342,22 @@ class _RegisterState extends State<Register> {
                           },
                         ),
                         BlocConsumer<FondoimagenBloc, FondoimagenState>(
-                          listenWhen: (context, state2) {
-                            return state2 is FondoSelectedSuccessState;
+                          listenWhen: (context, state) {
+                            return state is FondoSelectedSuccessState;
                           },
-                          listener: (context, state2) {},
-                          buildWhen: (context, state2) {
-                            return state2 is FondoimagenState ||
-                                state2 is FondoSelectedSuccessState;
+                          listener: (context, state) {},
+                          buildWhen: (context, state) {
+                            return state is FondoimagenState ||
+                                state is FondoSelectedSuccessState;
                           },
-                          builder: (context, state2) {
-                            if (state2 is FondoSelectedSuccessState) {
-                              pathFondo = state2.pickedFile2.path;
-                              print('PATH ${state2.pickedFile2.path}');
+                          builder: (context, state) {
+                            if (state is FondoSelectedSuccessState) {
+                              pathFondo = state.pickedFile.path;
+                              print('PATH ${state.pickedFile.path}');
                               return Column(children: [
                                 Image.file(
-                                  File(state2.pickedFile2.path),
-                                  height: 100,
+                                  File(state.pickedFile.path),
+                                  height: 50,
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(

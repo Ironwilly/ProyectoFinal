@@ -1,4 +1,4 @@
-#Fri Jun 10 14:22:16 CEST 2022
-base.0=C\:\\Users\\ferrari.fegui21\\Documents\\2DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Fri Jun 10 22:48:51 CEST 2022
+base.0=D\:\\2 DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

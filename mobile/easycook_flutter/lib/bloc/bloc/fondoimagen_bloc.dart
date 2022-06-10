@@ -11,14 +11,13 @@ class FondoimagenBloc extends Bloc<FondoimagenEvent, FondoimagenState> {
   }
 
   void _onSelectImage2(
-      SelectFondoimagenEvent event2, Emitter<FondoimagenState> emit) async {
-    final ImagePicker _picker2 = ImagePicker();
+      SelectFondoimagenEvent event, Emitter<FondoimagenState> emit) async {
+    final ImagePicker _picker = ImagePicker();
 
     try {
-      final XFile? pickedFile2 =
-          await _picker2.pickImage(source: event2.source2);
-      if (pickedFile2 != null) {
-        emit(FondoSelectedSuccessState(pickedFile2));
+      final XFile? pickedFile = await _picker.pickImage(source: event.source);
+      if (pickedFile != null) {
+        emit(FondoSelectedSuccessState(pickedFile));
       } else {
         emit(const FondoSelectedErrorState('Error en la imagen seleccionada'));
       }

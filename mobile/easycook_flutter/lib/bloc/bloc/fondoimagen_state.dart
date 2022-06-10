@@ -10,12 +10,12 @@ abstract class FondoimagenState extends Equatable {
 class FondoimagenInitial extends FondoimagenState {}
 
 class FondoSelectedSuccessState extends FondoimagenState {
-  final XFile pickedFile2;
+  final XFile pickedFile;
 
-  const FondoSelectedSuccessState(this.pickedFile2);
+  const FondoSelectedSuccessState(this.pickedFile);
 
   @override
-  List<Object> get props => [pickedFile2];
+  List<Object> get props => [pickedFile];
 }
 
 class FondoSelectedErrorState extends FondoimagenState {

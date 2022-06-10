@@ -3,7 +3,6 @@ import 'package:easycook_flutter/models/login_dto.dart';
 import 'package:easycook_flutter/models/login_response.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository_imp.dart';
-import 'package:easycook_flutter/ui/screens/home_screen.dart';
 import 'package:easycook_flutter/ui/screens/recetas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

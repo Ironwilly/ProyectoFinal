@@ -12,30 +12,30 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\android\app\src\debug\AndroidManifest.xml:6:5-66
-14-->D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\android\app\src\debug\AndroidManifest.xml:6:22-64
+14-->C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\android\app\src\debug\AndroidManifest.xml:6:22-64
 15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-15-->[:file_picker] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
-15-->[:file_picker] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
+15-->[:file_picker] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+15-->[:file_picker] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
 16
 17    <queries>
-17-->[:file_picker] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-15:15
+17-->[:file_picker] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-15:15
 18        <intent>
-18-->[:file_picker] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:9-14:18
+18-->[:file_picker] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:9-14:18
 19            <action android:name="android.intent.action.GET_CONTENT" />
-19-->[:file_picker] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-72
-19-->[:file_picker] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:21-69
+19-->[:file_picker] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-72
+19-->[:file_picker] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:21-69
 20
 21            <data android:mimeType="*/*" />
-21-->[:file_picker] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-44
-21-->[:file_picker] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:19-41
+21-->[:file_picker] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-44
+21-->[:file_picker] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\file_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:19-41
 22        </intent>
 23    </queries>
 24
 25    <application
 26        android:name="android.app.Application"
 27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-27-->[androidx.core:core:1.8.0] C:\Users\ferra\.gradle\caches\transforms-2\files-2.1\8e86e615f21ac3758e97e94e18045107\core-1.8.0\AndroidManifest.xml:24:18-86
+27-->[androidx.core:core:1.8.0] C:\Users\ferrari.fegui21\.gradle\caches\transforms-2\files-2.1\8e86e615f21ac3758e97e94e18045107\core-1.8.0\AndroidManifest.xml:24:18-86
 28        android:debuggable="true"
 29        android:icon="@mipmap/ic_launcher"
 30        android:label="easycook_flutter" >
@@ -73,22 +73,35 @@
 62            android:value="2" />
 63
 64        <provider
-64-->[:image_picker_android] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
+64-->[:image_picker_android] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
 65            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-65-->[:image_picker_android] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-82
+65-->[:image_picker_android] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-82
 66            android:authorities="com.example.easycook_flutter.flutter.image_provider"
-66-->[:image_picker_android] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-74
+66-->[:image_picker_android] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-74
 67            android:exported="false"
-67-->[:image_picker_android] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-37
+67-->[:image_picker_android] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-37
 68            android:grantUriPermissions="true" >
-68-->[:image_picker_android] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-47
+68-->[:image_picker_android] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-47
 69            <meta-data
-69-->[:image_picker_android] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-15:75
+69-->[:image_picker_android] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-15:75
 70                android:name="android.support.FILE_PROVIDER_PATHS"
-70-->[:image_picker_android] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:14:17-67
+70-->[:image_picker_android] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:14:17-67
 71                android:resource="@xml/flutter_image_picker_file_paths" />
-71-->[:image_picker_android] D:\2 DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-72
+71-->[:image_picker_android] C:\Users\ferrari.fegui21\Documents\2DAM\ProyectoFinal\mobile\easycook_flutter\build\image_picker_android\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-72
 72        </provider>
-73    </application>
-74
-75</manifest>
+73
+74        <uses-library
+74-->[androidx.window:window:1.0.0-beta04] C:\Users\ferrari.fegui21\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+75            android:name="androidx.window.extensions"
+75-->[androidx.window:window:1.0.0-beta04] C:\Users\ferrari.fegui21\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+76            android:required="false" />
+76-->[androidx.window:window:1.0.0-beta04] C:\Users\ferrari.fegui21\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+77        <uses-library
+77-->[androidx.window:window:1.0.0-beta04] C:\Users\ferrari.fegui21\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+78            android:name="androidx.window.sidecar"
+78-->[androidx.window:window:1.0.0-beta04] C:\Users\ferrari.fegui21\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+79            android:required="false" />
+79-->[androidx.window:window:1.0.0-beta04] C:\Users\ferrari.fegui21\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+80    </application>
+81
+82</manifest>

@@ -1,13 +1,12 @@
 import 'dart:io';
+import 'package:easycook_flutter/bloc/bloc/fondoimagen_bloc.dart';
 import 'package:easycook_flutter/bloc/image_bloc/bloc/image_bloc.dart';
 import 'package:easycook_flutter/bloc/register/bloc/register_bloc.dart';
-import 'package:easycook_flutter/models/login_dto.dart';
 import 'package:easycook_flutter/models/register_dto.dart';
 import 'package:easycook_flutter/models/register_response.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository_imp.dart';
 import 'package:easycook_flutter/ui/screens/login.dart';
-import 'package:easycook_flutter/ui/screens/menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -236,6 +235,23 @@ class _RegisterState extends State<Register> {
                       color: Color.fromRGBO(255, 255, 255, 1),
                       child: TextFormField(
                         decoration: const InputDecoration(
+                          hintText: 'Email',
+                        ),
+                        validator: (value) {
+                          if (value == null || value.contains('@')) {
+                            return 'Please enter @';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      width: 300,
+                      height: 40,
+                      margin: const EdgeInsets.only(top: 20),
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
                           fillColor: Colors.white,
                           hintText: 'Contraseña',
                         ),
@@ -315,22 +331,22 @@ class _RegisterState extends State<Register> {
                                     )));
                           },
                         ),
-                        BlocConsumer<ImageBloc, ImageState>(
-                          listenWhen: (context, state) {
-                            return state is ImageSelectedSuccessState2;
+                        BlocConsumer<FondoimagenBloc, FondoimagenState>(
+                          listenWhen: (context, state2) {
+                            return state2 is FondoSelectedSuccessState;
                           },
-                          listener: (context, state) {},
-                          buildWhen: (context, state) {
-                            return state is ImageState ||
-                                state is ImageSelectedSuccessState2;
+                          listener: (context, state2) {},
+                          buildWhen: (context, state2) {
+                            return state2 is FondoimagenState ||
+                                state2 is FondoSelectedSuccessState;
                           },
-                          builder: (context, state) {
-                            if (state is ImageSelectedSuccessState2) {
-                              pathFondo = state.pickedFile2.path;
-                              print('PATH ${state.pickedFile2.path}');
+                          builder: (context, state2) {
+                            if (state2 is FondoSelectedSuccessState) {
+                              pathFondo = state2.pickedFile2.path;
+                              print('PATH ${state2.pickedFile2.path}');
                               return Column(children: [
                                 Image.file(
-                                  File(state.pickedFile2.path),
+                                  File(state2.pickedFile2.path),
                                   height: 100,
                                 ),
                                 ElevatedButton(
@@ -351,8 +367,8 @@ class _RegisterState extends State<Register> {
                                         primary:
                                             Color.fromRGBO(200, 200, 200, 1)),
                                     onPressed: () {
-                                      BlocProvider.of<ImageBloc>(context).add(
-                                          const SelectImageEvent(
+                                      BlocProvider.of<FondoimagenBloc>(context)
+                                          .add(const SelectFondoimagenEvent(
                                               ImageSource.gallery));
                                     },
                                     child: const Text(

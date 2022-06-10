@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\2 DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\path_provider_android\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-or\\values-or.xml",
+            "outputFile": "C:\\Users\\ferrari.fegui21\\Documents\\2DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\path_provider_android\\intermediates\\res\\merged\\debug\\values-or\\values-or.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ferra\\.gradle\\caches\\transforms-2\\files-2.1\\122df2e57d294d1a53db26bbc3b813c1\\core-1.6.0\\res\\values-or\\values-or.xml",
+                    "source": "C:\\Users\\ferrari.fegui21\\.gradle\\caches\\transforms-2\\files-2.1\\122df2e57d294d1a53db26bbc3b813c1\\core-1.6.0\\res\\values-or\\values-or.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "D:\\2 DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\path_provider_android\\intermediates\\res\\merged\\debug\\values-or\\values-or.xml",
+            "outputFile": "C:\\Users\\ferrari.fegui21\\Documents\\2DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\path_provider_android\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-or\\values-or.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ferra\\.gradle\\caches\\transforms-2\\files-2.1\\122df2e57d294d1a53db26bbc3b813c1\\core-1.6.0\\res\\values-or\\values-or.xml",
+                    "source": "C:\\Users\\ferrari.fegui21\\.gradle\\caches\\transforms-2\\files-2.1\\122df2e57d294d1a53db26bbc3b813c1\\core-1.6.0\\res\\values-or\\values-or.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

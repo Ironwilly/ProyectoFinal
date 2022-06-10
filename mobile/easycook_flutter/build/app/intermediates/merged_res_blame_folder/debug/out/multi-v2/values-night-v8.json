@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\2 DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "C:\\Users\\ferrari.fegui21\\Documents\\2DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "D:\\2 DAM\\ProyectoFinal\\mobile\\easycook_flutter\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\ferrari.fegui21\\Documents\\2DAM\\ProyectoFinal\\mobile\\easycook_flutter\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

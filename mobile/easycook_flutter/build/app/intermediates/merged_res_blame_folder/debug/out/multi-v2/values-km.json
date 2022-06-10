@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\2 DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-km\\values-km.xml",
+            "outputFile": "C:\\Users\\ferrari.fegui21\\Documents\\2DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-km\\values-km.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ferra\\.gradle\\caches\\transforms-2\\files-2.1\\8e86e615f21ac3758e97e94e18045107\\core-1.8.0\\res\\values-km\\values-km.xml",
+                    "source": "C:\\Users\\ferrari.fegui21\\.gradle\\caches\\transforms-2\\files-2.1\\8e86e615f21ac3758e97e94e18045107\\core-1.8.0\\res\\values-km\\values-km.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

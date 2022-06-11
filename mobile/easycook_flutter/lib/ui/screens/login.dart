@@ -74,7 +74,6 @@ class _LoginState extends State<Login> {
   Future<void> _loginSuccess(BuildContext context, LoginResponse late) async {
     _prefs.then((SharedPreferences prefs) {
       prefs.setString('token', late.token);
-      prefs.setString('id', late.id);
       prefs.setString('avatar', late.avatar);
 
       Navigator.push(

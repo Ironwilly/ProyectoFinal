@@ -187,7 +187,7 @@ class _EditarPerfilState extends State<EditarPerfil> {
                       children: [
                         Column(
                           children: [
-                            Text('Avatar   '),
+                            Text('avatar   '),
                           ],
                         ),
                         Column(

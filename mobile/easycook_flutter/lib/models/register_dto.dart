@@ -1,20 +1,20 @@
 class RegisterDto {
-  RegisterDto({
-    required this.nombre,
-    required this.apellidos,
-    required this.nick,
-    required this.ciudad,
-    required this.email,
-    required this.password,
-    required this.repetirPassword,
-  });
-  late final String nombre;
-  late final String apellidos;
-  late final String nick;
-  late final String ciudad;
-  late final String email;
-  late final String password;
-  late final String repetirPassword;
+  String? nombre;
+  String? apellidos;
+  String? nick;
+  String? ciudad;
+  String? email;
+  String? password;
+  String? repetirPassword;
+
+  RegisterDto(
+      {this.nombre,
+      this.apellidos,
+      this.nick,
+      this.ciudad,
+      this.email,
+      this.password,
+      this.repetirPassword});
 
   RegisterDto.fromJson(Map<String, dynamic> json) {
     nombre = json['nombre'];
@@ -27,14 +27,14 @@ class RegisterDto {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['nombre'] = nombre;
-    _data['apellidos'] = apellidos;
-    _data['nick'] = nick;
-    _data['ciudad'] = ciudad;
-    _data['email'] = email;
-    _data['password'] = password;
-    _data['repetirPassword'] = repetirPassword;
-    return _data;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['nombre'] = this.nombre;
+    data['apellidos'] = this.apellidos;
+    data['nick'] = this.nick;
+    data['ciudad'] = this.ciudad;
+    data['email'] = this.email;
+    data['password'] = this.password;
+    data['repetirPassword'] = this.repetirPassword;
+    return data;
   }
 }

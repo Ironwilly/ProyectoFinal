@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -98,7 +99,7 @@ class _RegisterState extends State<Register> {
             return state is RegisterSuccessState || state is LoginErrorState;
           }, listener: (context, state) async {
             if (state is RegisterSuccessState) {
-              _registerSuccess(context, state.loginResponse);
+              _registerSuccess(context, state.registerResponse);
             } else if (state is LoginErrorState) {
               _showSnackbar(context, state.message);
             }
@@ -320,7 +321,7 @@ class _RegisterState extends State<Register> {
                                         await SharedPreferences.getInstance();
                                     prefs.setString('avatar', pathAvatar);
                                   },
-                                  child: const Text('Avatar'),
+                                  child: const Text('avatar'),
                                 )
                               ]);
                             }
@@ -335,7 +336,7 @@ class _RegisterState extends State<Register> {
                                               ImageSource.gallery));
                                     },
                                     child: const Text(
-                                      'Avatar',
+                                      'avatar',
                                       style: TextStyle(
                                           color: Color.fromRGBO(0, 0, 0, 1)),
                                     )));
@@ -367,7 +368,7 @@ class _RegisterState extends State<Register> {
                                         await SharedPreferences.getInstance();
                                     prefs.setString('fondo', pathFondo);
                                   },
-                                  child: const Text('Fondo'),
+                                  child: const Text('fondo'),
                                 )
                               ]);
                             }
@@ -382,7 +383,7 @@ class _RegisterState extends State<Register> {
                                               ImageSource.gallery));
                                     },
                                     child: const Text(
-                                      'Fondo',
+                                      'fondo',
                                       style: TextStyle(
                                           color: Color.fromRGBO(0, 0, 0, 1)),
                                     )));
@@ -390,10 +391,7 @@ class _RegisterState extends State<Register> {
                         ),
                       ],
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 30, bottom: 15),
-                      width: 200,
-                      height: 40,
+                    GestureDetector(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(
@@ -403,7 +401,7 @@ class _RegisterState extends State<Register> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            final loginDto = RegisterDto(
+                            final registerDto = RegisterDto(
                                 nombre: nombre.text,
                                 apellidos: apellidos.text,
                                 nick: nick.text,
@@ -411,10 +409,13 @@ class _RegisterState extends State<Register> {
                                 email: email.text,
                                 password: password.text,
                                 repetirPassword: repetirPassword.text);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            );
 
                             BlocProvider.of<RegisterBloc>(context).add(
                                 DoRegisterEvent(
-                                    loginDto, pathAvatar, pathFondo));
+                                    registerDto, pathAvatar, pathFondo));
                           }
                         },
                         child: const Text('Registrar'),

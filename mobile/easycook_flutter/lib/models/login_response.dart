@@ -1,6 +1,5 @@
 class LoginResponse {
   LoginResponse({
-    required this.id,
     required this.nombre,
     required this.apellidos,
     required this.nick,
@@ -8,7 +7,6 @@ class LoginResponse {
     required this.avatar,
     required this.token,
   });
-  late final String id;
   late final String nombre;
   late final String apellidos;
   late final String nick;
@@ -17,7 +15,6 @@ class LoginResponse {
   late final String token;
 
   LoginResponse.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     nombre = json['nombre'];
     apellidos = json['apellidos'];
     nick = json['nick'];
@@ -28,7 +25,6 @@ class LoginResponse {
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['id'] = id;
     _data['nombre'] = nombre;
     _data['apellidos'] = apellidos;
     _data['nick'] = nick;

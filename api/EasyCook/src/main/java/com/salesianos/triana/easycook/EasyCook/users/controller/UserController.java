@@ -43,9 +43,9 @@ public class UserController {
     })
     @PostMapping("/auth/register")
     public ResponseEntity<GetUserDto> register(@RequestPart("user")CreateUserDto newUser, @RequestPart("avatar")
-            MultipartFile file1,@RequestPart("fondo") MultipartFile file2) throws IOException{
+            MultipartFile file1) throws IOException{
 
-        User userSaved = userService.saveUser(newUser,file1,file2);
+        User userSaved = userService.saveUser(newUser,file1);
         if(userSaved == null){
             return ResponseEntity.badRequest().build();
         }else {
@@ -55,6 +55,6 @@ public class UserController {
 
     @PutMapping("profile/me")
     public ResponseEntity<Optional<GetUserDto>> editarPerfil (@AuthenticationPrincipal User user,@RequestPart("user") CreateUserDto createUserDto,@RequestPart("avatar")MultipartFile file1,@RequestPart("fondo")MultipartFile file2) throws  ListNotFoundException {
-        return ResponseEntity.ok(userService.editUser(createUserDto,user,file1,file2));
+        return ResponseEntity.ok(userService.editUser(createUserDto,user,file1));
     }
 }

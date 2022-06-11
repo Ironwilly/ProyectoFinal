@@ -21,8 +21,6 @@ public class GetUserDto {
 
     private String avatar;
 
-    private String fondo;
-
     private String rol;
 
 

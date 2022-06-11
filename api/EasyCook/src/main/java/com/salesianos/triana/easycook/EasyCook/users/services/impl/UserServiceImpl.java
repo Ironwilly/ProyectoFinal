@@ -59,12 +59,12 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
         return this.repositorio.findById(id);
     }
 
-    public User saveUser(CreateUserDto createUserDto, MultipartFile file1, MultipartFile file2) throws IOException {
+    public User saveUser(CreateUserDto createUserDto, MultipartFile file1) throws IOException {
 
         if (createUserDto.getPassword().contentEquals(createUserDto.getRepetirPassword())) {
 
             String name1 = storageService.store(file1);
-            String name2 = storageService.store(file2);
+
 
 
             String extension1 = StringUtils.getFilenameExtension(name1);
@@ -73,11 +73,6 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
             OutputStream outputStream1 = Files.newOutputStream(storageService.load(name1));
             ImageIO.write(escaledImage1, extension1, outputStream1);
 
-            String extension2 = StringUtils.getFilenameExtension(name2);
-            BufferedImage originalImage2 = ImageIO.read(file2.getInputStream());
-            BufferedImage escaledImage2 = storageService.simpleResizer(originalImage2, 256);
-            OutputStream outputStream2 = Files.newOutputStream(storageService.load(name2));
-            ImageIO.write(escaledImage2, extension2, outputStream2);
 
 
             String uri1 = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -85,10 +80,7 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
                     .path(name1)
                     .toUriString();
 
-            String uri2 = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/fondo/")
-                    .path(name2)
-                    .toUriString();
+
 
 
             User user = User.builder()
@@ -99,7 +91,6 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
                     .email(createUserDto.getEmail())
                     .password(passwordEncoder.encode(createUserDto.getPassword()))
                     .avatar(uri1)
-                    .fondo(uri2)
                     .rol(UserRole.USUARIO)
                     .build();
 
@@ -111,7 +102,7 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
         }
     }
 
-    public Optional<GetUserDto> editUser(CreateUserDto createUserDto, User user, MultipartFile file1, MultipartFile file2) throws ListNotFoundException{
+    public Optional<GetUserDto> editUser(CreateUserDto createUserDto, User user, MultipartFile file1) throws ListNotFoundException{
 
         Optional<User> data = repositorio.findById(user.getId());
 
@@ -134,22 +125,15 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
                     .toUriString();
 
 
-            String name2 = StringUtils.cleanPath(String.valueOf(data.get().getFondo())).replace("http://localhost:8080/fondo/", "")
-                    .replace("%20", " ");
-            Path pa2 = storageService.load(name2);
 
-            String filename2 = StringUtils.cleanPath(String.valueOf(pa2)).replace("http://localhost:8080/fondo/", "")
-                    .replace("%20", " ");
-            Path path2 = Paths.get(filename2);
 
-            storageService.deleteFile(path2.toString());
 
-            String original2 = storageService.store(file2);
 
-            String uri2 = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/fondo/")
-                    .path(original2)
-                    .toUriString();
+
+
+
+
+
 
 
             return data.map(m -> {
@@ -162,7 +146,6 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
                 m.setEmail(createUserDto.getEmail());
                 m.setPassword(passwordEncoder.encode(createUserDto.getPassword()));
                 m.setAvatar(uri1);
-                m.setFondo(uri2);
                 m.setRol(UserRole.USUARIO);
                 userRepository.save(m);
                 return userDtoConverter.convertUserToUserDto(m);

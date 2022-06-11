@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:easycook_flutter/bloc/bloc/fondoimagen_bloc.dart';
+
 import 'package:easycook_flutter/bloc/image_bloc/bloc/image_bloc.dart';
 import 'package:easycook_flutter/bloc/register/bloc/register_bloc.dart';
 import 'package:easycook_flutter/models/register_dto.dart';
@@ -43,7 +43,6 @@ class _RegisterState extends State<Register> {
   late Future<SharedPreferences> _prefs;
   final String uploadUrl = 'http://10.0.2.2:8080/auth/register';
   String pathAvatar = "";
-  String pathFondo = "";
 
   @override
   void initState() {
@@ -68,16 +67,6 @@ class _RegisterState extends State<Register> {
               return RegisterBloc(authRepository);
             },
           ),
-          BlocProvider(
-            create: (context) {
-              return FondoimagenBloc();
-            },
-          ),
-          BlocProvider(
-            create: (context) {
-              return RegisterBloc(authRepository);
-            },
-          )
         ],
         child: _createBody(context),
       ),
@@ -123,7 +112,6 @@ class _RegisterState extends State<Register> {
       prefs.setString('token', late.email);
       prefs.setString('id', late.id);
       prefs.setString('avatar', late.avatar);
-      prefs.setString('fondo', late.fondo);
 
       Navigator.push(
         context,
@@ -348,57 +336,6 @@ class _RegisterState extends State<Register> {
                                           )));
                                 },
                               ),
-                              BlocConsumer<FondoimagenBloc, FondoimagenState>(
-                                listenWhen: (context, state) {
-                                  return state is FondoSelectedSuccessState;
-                                },
-                                listener: (context, state) {},
-                                buildWhen: (context, state) {
-                                  return state is FondoimagenState ||
-                                      state is FondoSelectedSuccessState;
-                                },
-                                builder: (context, state) {
-                                  if (state is FondoSelectedSuccessState) {
-                                    pathFondo = state.pickedFile.path;
-                                    print('PATH ${state.pickedFile.path}');
-                                    return Column(children: [
-                                      Image.file(
-                                        File(state.pickedFile.path),
-                                        height: 50,
-                                      ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            primary: Colors.red),
-                                        onPressed: () async {
-                                          SharedPreferences prefs =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          prefs.setString('fondo', pathFondo);
-                                        },
-                                        child: const Text('fondo'),
-                                      )
-                                    ]);
-                                  }
-                                  return Center(
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              primary: Color.fromRGBO(
-                                                  200, 200, 200, 1)),
-                                          onPressed: () {
-                                            BlocProvider.of<FondoimagenBloc>(
-                                                    context)
-                                                .add(
-                                                    const SelectFondoimagenEvent(
-                                                        ImageSource.gallery));
-                                          },
-                                          child: const Text(
-                                            'fondo',
-                                            style: TextStyle(
-                                                color:
-                                                    Color.fromRGBO(0, 0, 0, 1)),
-                                          )));
-                                },
-                              ),
                             ],
                           ),
                         ],
@@ -425,10 +362,6 @@ class _RegisterState extends State<Register> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Processing Data')),
                             );
-
-                            BlocProvider.of<RegisterBloc>(context).add(
-                                DoRegisterEvent(
-                                    registerDto, pathAvatar, pathFondo));
                           }
                         },
                         child: const Text('Registrar'),

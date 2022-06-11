@@ -38,7 +38,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<RegisterResponse> register(
-      RegisterDto registerDto, String avatar, String fondo) async {
+      RegisterDto registerDto, String avatar) async {
     Map<String, String> headers = {
       'Content-type': 'multipart/form-data',
       // 'Authorization': 'Bearer $token'
@@ -61,8 +61,6 @@ class AuthRepositoryImpl extends AuthRepository {
     request.fields['repetirPassword'] = registerDto.repetirPassword.toString();
     request.files.add(await http.MultipartFile.fromPath(
         'avatar', prefs.getString('avatar').toString()));
-    request.files.add(await http.MultipartFile.fromPath(
-        'fondo', prefs.getString('fondo').toString()));
 
     final response = await request.send();
 

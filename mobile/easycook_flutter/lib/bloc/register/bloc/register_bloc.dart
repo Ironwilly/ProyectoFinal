@@ -18,8 +18,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   void _doRegisterEvent(
       DoRegisterEvent event, Emitter<RegisterState> emit) async {
     try {
-      final loginResponse = await authRepository.register(
-          event.registerDto, event.avatar, event.fondo);
+      final loginResponse =
+          await authRepository.register(event.registerDto, event.avatar);
       emit(RegisterSuccessState(loginResponse));
       return;
     } on Exception catch (e) {

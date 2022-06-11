@@ -10,7 +10,6 @@ abstract class RegisterEvent extends Equatable {
 class DoRegisterEvent extends RegisterEvent {
   final RegisterDto registerDto;
   final String avatar;
-  final String fondo;
 
-  const DoRegisterEvent(this.registerDto, this.avatar, this.fondo);
+  const DoRegisterEvent(this.registerDto, this.avatar);
 }

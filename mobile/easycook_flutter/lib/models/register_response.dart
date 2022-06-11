@@ -5,7 +5,6 @@ class RegisterResponse {
     required this.nick,
     required this.email,
     required this.avatar,
-    required this.fondo,
     required this.rol,
   });
   late final String id;
@@ -13,7 +12,6 @@ class RegisterResponse {
   late final String nick;
   late final String email;
   late final String avatar;
-  late final String fondo;
   late final String rol;
 
   RegisterResponse.fromJson(Map<String, dynamic> json) {
@@ -22,7 +20,6 @@ class RegisterResponse {
     nick = json['nick'];
     email = json['email'];
     avatar = json['avatar'];
-    fondo = json['fondo'];
     rol = json['rol'];
   }
 
@@ -33,7 +30,6 @@ class RegisterResponse {
     _data['nick'] = nick;
     _data['email'] = email;
     _data['avatar'] = avatar;
-    _data['fondo'] = fondo;
     _data['rol'] = rol;
     return _data;
   }

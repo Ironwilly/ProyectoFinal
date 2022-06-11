@@ -67,7 +67,6 @@ public class AuthenticationController {
                 .nick(user.getNick())
                 .email(user.getEmail())
                 .avatar(user.getAvatar())
-                .fondo(user.getFondo())
                 .rol(user.getRol().name())
                 .build();
 

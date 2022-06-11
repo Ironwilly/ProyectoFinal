@@ -171,225 +171,238 @@ class _RegisterState extends State<Register> {
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   children: <Widget>[
-                    Container(
-                      width: 300,
-                      height: 40,
-                      margin: const EdgeInsets.only(top: 20),
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Nombre',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 300,
+                            height: 40,
+                            margin: const EdgeInsets.only(top: 20),
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Nombre',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 300,
+                            height: 40,
+                            margin: const EdgeInsets.only(top: 20),
+                            color: Colors.white,
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Apellidos',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 300,
+                            height: 40,
+                            margin: const EdgeInsets.only(top: 20),
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Usuario',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 300,
+                            height: 40,
+                            margin: const EdgeInsets.only(top: 20),
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Ciudad/Pueblo',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 300,
+                            height: 40,
+                            margin: const EdgeInsets.only(top: 20),
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                hintText: 'Email',
+                              ),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Please enter @';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 300,
+                            height: 40,
+                            margin: const EdgeInsets.only(top: 20),
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                fillColor: Colors.white,
+                                hintText: 'Contraseña',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 300,
+                            height: 40,
+                            margin: EdgeInsets.only(top: 20, bottom: 15),
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                            child: TextFormField(
+                              decoration: const InputDecoration(
+                                fillColor: Colors.white,
+                                hintText: 'Confirmar contraseña',
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter some text';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              BlocConsumer<ImageBloc, ImageState>(
+                                listenWhen: (context, state) {
+                                  return state is ImageSelectedSuccessState;
+                                },
+                                listener: (context, state) {},
+                                buildWhen: (context, state) {
+                                  return state is ImageState ||
+                                      state is ImageSelectedSuccessState;
+                                },
+                                builder: (context, state) {
+                                  if (state is ImageSelectedSuccessState) {
+                                    pathAvatar = state.pickedFile.path;
+                                    print('PATH ${state.pickedFile.path}');
+                                    return Column(children: [
+                                      Image.file(
+                                        File(state.pickedFile.path),
+                                        height: 50,
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.red),
+                                        onPressed: () async {
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          prefs.setString('avatar', pathAvatar);
+                                        },
+                                        child: const Text('avatar'),
+                                      )
+                                    ]);
+                                  }
+                                  return Center(
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              primary: Color.fromRGBO(
+                                                  200, 200, 200, 1)),
+                                          onPressed: () {
+                                            BlocProvider.of<ImageBloc>(context)
+                                                .add(const SelectImageEvent(
+                                                    ImageSource.gallery));
+                                          },
+                                          child: const Text(
+                                            'avatar',
+                                            style: TextStyle(
+                                                color:
+                                                    Color.fromRGBO(0, 0, 0, 1)),
+                                          )));
+                                },
+                              ),
+                              BlocConsumer<FondoimagenBloc, FondoimagenState>(
+                                listenWhen: (context, state) {
+                                  return state is FondoSelectedSuccessState;
+                                },
+                                listener: (context, state) {},
+                                buildWhen: (context, state) {
+                                  return state is FondoimagenState ||
+                                      state is FondoSelectedSuccessState;
+                                },
+                                builder: (context, state) {
+                                  if (state is FondoSelectedSuccessState) {
+                                    pathFondo = state.pickedFile.path;
+                                    print('PATH ${state.pickedFile.path}');
+                                    return Column(children: [
+                                      Image.file(
+                                        File(state.pickedFile.path),
+                                        height: 50,
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.red),
+                                        onPressed: () async {
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          prefs.setString('fondo', pathFondo);
+                                        },
+                                        child: const Text('fondo'),
+                                      )
+                                    ]);
+                                  }
+                                  return Center(
+                                      child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              primary: Color.fromRGBO(
+                                                  200, 200, 200, 1)),
+                                          onPressed: () {
+                                            BlocProvider.of<FondoimagenBloc>(
+                                                    context)
+                                                .add(
+                                                    const SelectFondoimagenEvent(
+                                                        ImageSource.gallery));
+                                          },
+                                          child: const Text(
+                                            'fondo',
+                                            style: TextStyle(
+                                                color:
+                                                    Color.fromRGBO(0, 0, 0, 1)),
+                                          )));
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    Container(
-                      width: 300,
-                      height: 40,
-                      margin: const EdgeInsets.only(top: 20),
-                      color: Colors.white,
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Apellidos',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 300,
-                      height: 40,
-                      margin: const EdgeInsets.only(top: 20),
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Usuario',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 300,
-                      height: 40,
-                      margin: const EdgeInsets.only(top: 20),
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Ciudad/Pueblo',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 300,
-                      height: 40,
-                      margin: const EdgeInsets.only(top: 20),
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Email',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.contains('@')) {
-                            return 'Please enter @';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 300,
-                      height: 40,
-                      margin: const EdgeInsets.only(top: 20),
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          fillColor: Colors.white,
-                          hintText: 'Contraseña',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 300,
-                      height: 40,
-                      margin: EdgeInsets.only(top: 20, bottom: 15),
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          fillColor: Colors.white,
-                          hintText: 'Confirmar contraseña',
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        BlocConsumer<ImageBloc, ImageState>(
-                          listenWhen: (context, state) {
-                            return state is ImageSelectedSuccessState;
-                          },
-                          listener: (context, state) {},
-                          buildWhen: (context, state) {
-                            return state is ImageState ||
-                                state is ImageSelectedSuccessState;
-                          },
-                          builder: (context, state) {
-                            if (state is ImageSelectedSuccessState) {
-                              pathAvatar = state.pickedFile.path;
-                              print('PATH ${state.pickedFile.path}');
-                              return Column(children: [
-                                Image.file(
-                                  File(state.pickedFile.path),
-                                  height: 50,
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.red),
-                                  onPressed: () async {
-                                    SharedPreferences prefs =
-                                        await SharedPreferences.getInstance();
-                                    prefs.setString('avatar', pathAvatar);
-                                  },
-                                  child: const Text('avatar'),
-                                )
-                              ]);
-                            }
-                            return Center(
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary:
-                                            Color.fromRGBO(200, 200, 200, 1)),
-                                    onPressed: () {
-                                      BlocProvider.of<ImageBloc>(context).add(
-                                          const SelectImageEvent(
-                                              ImageSource.gallery));
-                                    },
-                                    child: const Text(
-                                      'avatar',
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(0, 0, 0, 1)),
-                                    )));
-                          },
-                        ),
-                        BlocConsumer<FondoimagenBloc, FondoimagenState>(
-                          listenWhen: (context, state) {
-                            return state is FondoSelectedSuccessState;
-                          },
-                          listener: (context, state) {},
-                          buildWhen: (context, state) {
-                            return state is FondoimagenState ||
-                                state is FondoSelectedSuccessState;
-                          },
-                          builder: (context, state) {
-                            if (state is FondoSelectedSuccessState) {
-                              pathFondo = state.pickedFile.path;
-                              print('PATH ${state.pickedFile.path}');
-                              return Column(children: [
-                                Image.file(
-                                  File(state.pickedFile.path),
-                                  height: 50,
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.red),
-                                  onPressed: () async {
-                                    SharedPreferences prefs =
-                                        await SharedPreferences.getInstance();
-                                    prefs.setString('fondo', pathFondo);
-                                  },
-                                  child: const Text('fondo'),
-                                )
-                              ]);
-                            }
-                            return Center(
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary:
-                                            Color.fromRGBO(200, 200, 200, 1)),
-                                    onPressed: () {
-                                      BlocProvider.of<FondoimagenBloc>(context)
-                                          .add(const SelectFondoimagenEvent(
-                                              ImageSource.gallery));
-                                    },
-                                    child: const Text(
-                                      'fondo',
-                                      style: TextStyle(
-                                          color: Color.fromRGBO(0, 0, 0, 1)),
-                                    )));
-                          },
-                        ),
-                      ],
                     ),
                     GestureDetector(
                       child: ElevatedButton(

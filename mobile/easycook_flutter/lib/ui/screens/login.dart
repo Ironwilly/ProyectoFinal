@@ -128,7 +128,6 @@ class _LoginState extends State<Login> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(top: 50),
-                            key: _formkey,
                             child: TextFormField(
                               decoration: const InputDecoration(
                                 hintText: 'Email',

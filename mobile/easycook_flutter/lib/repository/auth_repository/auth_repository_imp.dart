@@ -1,5 +1,6 @@
 import 'package:easycook_flutter/models/register_dto.dart';
 import 'package:easycook_flutter/models/register_response.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'auth_repository.dart';
@@ -25,6 +26,9 @@ class AuthRepositoryImpl extends AuthRepository {
         Uri.parse('http://10.0.2.2:8080/auth/login'),
         headers: headers,
         body: jsonEncode(loginDto.toJson()));
+
+    print(response.statusCode);
+
     if (response.statusCode == 201) {
       return LoginResponse.fromJson(json.decode(response.body));
     } else {
@@ -61,6 +65,8 @@ class AuthRepositoryImpl extends AuthRepository {
         'fondo', prefs.getString('fondo').toString()));
 
     final response = await request.send();
+
+    print(response.statusCode);
     if (response.statusCode == 201) print('Uploaded!');
 
     if (response.statusCode == 201) {

@@ -5,5 +5,5 @@ import 'package:easycook_flutter/models/register_response.dart';
 
 abstract class AuthRepository {
   Future<LoginResponse> login(LoginDto loginDto);
-  Future<RegisterResponse> register(RegisterDto registerDto, String avatar);
+  Future<RegisterResponse> register(RegisterDto registerDto, String imagePath);
 }

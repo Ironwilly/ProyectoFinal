@@ -14,7 +14,7 @@ import 'package:easycook_flutter/ui/screens/perfil.dart';
 import 'package:easycook_flutter/ui/screens/perfil_setting.dart';
 import 'package:easycook_flutter/ui/screens/receta_item.dart';
 import 'package:easycook_flutter/ui/screens/recetas.dart';
-import 'package:easycook_flutter/ui/screens/register.dart';
+import 'package:easycook_flutter/ui/screens/register_screen.dart';
 import 'package:easycook_flutter/ui/screens/usuario_categorias.dart';
 import 'package:easycook_flutter/ui/screens/usuario_recientes.dart';
 import 'package:easycook_flutter/utils/preferences.dart';
@@ -39,26 +39,26 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const Register(),
-        '/EditarReceta': (context) => const EditarReceta(),
-        '/RecetaItem': (context) => const RecetaItem(),
-        '/Menu': (context) => const Menu(),
-        '/Mapa': (context) => const Mapa(),
-        '/BusquedaReceta': (context) => const BusquedaReceta(),
-        '/UsuarioReciente': (context) => const UsuarioReciente(),
-        '/Otros': (context) => const Otros(),
-        '/Dulces': (context) => const Dulces(),
-        '/Pastas': (context) => const Pastas(),
-        '/HomeScreen': (context) => const HomeScreen(),
-        '/Login': (context) => const Login(),
-        '/Perfil': (context) => const Perfil(),
-        '/Register': (context) => const Register(),
-        '/PerfilSetting': (context) => const PerfilSetting(),
-        '/EditarPerfil': (context) => const EditarPerfil(),
-        '/MisRecetas': (context) => const MisRecetas(),
-        '/Recetas': (context) => const Recetas(),
-        '/AgregarReceta': (context) => const AgregarReceta(),
-        '/UsuarioCategorias': (context) => const UsuarioCategorias(),
+        '/': (context) => const RegisterScreen(),
+        '/editarReceta': (context) => const EditarReceta(),
+        '/recetaItem': (context) => const RecetaItem(),
+        '/menu': (context) => const Menu(),
+        '/mapa': (context) => const Mapa(),
+        '/busquedaReceta': (context) => const BusquedaReceta(),
+        '/usuarioReciente': (context) => const UsuarioReciente(),
+        '/otros': (context) => const Otros(),
+        '/dulces': (context) => const Dulces(),
+        '/pastas': (context) => const Pastas(),
+        '/homeScreen': (context) => const HomeScreen(),
+        '/login': (context) => const Login(),
+        '/perfil': (context) => const Perfil(),
+        '/register': (context) => const RegisterScreen(),
+        '/perfilSetting': (context) => const PerfilSetting(),
+        '/editarPerfil': (context) => const EditarPerfil(),
+        '/misRecetas': (context) => const MisRecetas(),
+        '/recetas': (context) => const Recetas(),
+        '/agregarReceta': (context) => const AgregarReceta(),
+        '/usuarioCategorias': (context) => const UsuarioCategorias(),
       },
     );
   }

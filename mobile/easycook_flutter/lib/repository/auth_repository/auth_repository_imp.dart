@@ -11,39 +11,36 @@ import 'package:easycook_flutter/models/login_response.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final Client _client = Client();
-
   @override
   Future<LoginResponse> login(LoginDto loginDto) async {
     Map<String, String> headers = {
-      'Content-type': 'application/json',
-      // 'Authorization': 'Bearer $token'
+      'Content-Type': 'application/json',
+      /*'Authorization':
+          'Bearer ${PreferenceUtils.getString(Constants.SHARED_BEARER_TOKEN)}'*/
     };
 
-    final response = await _client.post(
+    final response = await http.post(
         Uri.parse('http://10.0.2.2:8080/auth/login'),
         headers: headers,
         body: jsonEncode(loginDto.toJson()));
 
-    print(response.statusCode);
-
-    if (response.statusCode == 200) {
-      return LoginResponse.fromJson(json.decode(response.body));
+    if (response.statusCode == 201) {
+      return LoginResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Fallo al logarte');
+      throw Exception('Failed to login');
     }
   }
 
   @override
   Future<RegisterResponse> register(
-      RegisterDto registerDto, String avatar) async {
+      RegisterDto registerDto, String imagePath) async {
+    /*final response = await _client.post(
+        Uri.parse('http://10.0.2.2:8080/auth/register/user'),
+        headers: headers,
+        body: jsonEncode(registerDto.toJson()));*/
+
     Map<String, String> headers = {
-      'Content-type': 'multipart/form-data',
-      // 'Authorization': 'Bearer $token'
-    };
-    Map<String, String> headers2 = {
       'Content-Type': 'multipart/form-data',
-      // 'Authorization': 'Bearer $token'
     };
 
     var uri = Uri.parse('http://10.0.2.2:8080/auth/register');
@@ -58,21 +55,18 @@ class AuthRepositoryImpl extends AuthRepository {
     });
 
     var request = http.MultipartRequest('POST', uri)
-      ..files.add(http.MultipartFile.fromString('usuario', body,
+      ..files.add(http.MultipartFile.fromString('user', body,
           contentType: MediaType('application', 'json')))
-      ..files.add(await http.MultipartFile.fromPath('avatar', avatar,
+      ..files.add(await http.MultipartFile.fromPath('avatar', imagePath,
           contentType: MediaType('avatar', 'jpg')))
       ..headers.addAll(headers);
 
     final response = await request.send();
 
-    if (response.statusCode == 200) print('Uploaded!');
-
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return RegisterResponse.fromJson(
           jsonDecode(await response.stream.bytesToString()));
     } else {
-      print(response.statusCode);
       throw Exception('Revisa que te has confundido');
     }
   }

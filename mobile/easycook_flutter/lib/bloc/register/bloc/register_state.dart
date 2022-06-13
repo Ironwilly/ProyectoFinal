@@ -7,9 +7,9 @@ abstract class RegisterState extends Equatable {
   List<Object> get props => [];
 }
 
-class RegisterInitial extends RegisterState {}
+class RegisterInitialState extends RegisterState {}
 
-class RegisterLoading extends RegisterState {}
+class RegisterLoadingState extends RegisterState {}
 
 class RegisterSuccessState extends RegisterState {
   final RegisterResponse registerResponse;

@@ -56,7 +56,7 @@ public class RecetaController {
     @PutMapping("/{id}")
     public ResponseEntity<Optional<GetRecetaDto>> edit(@PathVariable Long id, @RequestPart("receta") CreateRecetaDto createRecetaDto, @RequestPart("recetaImagen") MultipartFile file3,
                                              @AuthenticationPrincipal User user) throws IOException, ListNotFoundException {
- return ResponseEntity.status(HttpStatus.OK).body(recetaService.editReceta(id,createRecetaDto,file3,user));
+ return ResponseEntity.status(HttpStatus.CREATED).body(recetaService.editReceta(id,createRecetaDto,file3,user));
     }
 
     @GetMapping("/all")
@@ -78,7 +78,7 @@ public class RecetaController {
         if(receta.isPresent()){
             return ResponseEntity.ok().body(recetaDtoConverter.getRecetaToRecetaDto(receta.get(), user));
         }else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
     }

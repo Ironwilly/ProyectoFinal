@@ -1,12 +1,15 @@
 import 'dart:io';
-
+import 'package:easycook_flutter/bloc/bloc/fondoimagen_bloc.dart';
 import 'package:easycook_flutter/bloc/image_bloc/bloc/image_bloc.dart';
 import 'package:easycook_flutter/bloc/register/bloc/register_bloc.dart';
 import 'package:easycook_flutter/models/register_dto.dart';
 import 'package:easycook_flutter/models/register_response.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository_imp.dart';
+import 'package:easycook_flutter/styles.dart';
 import 'package:easycook_flutter/ui/screens/login.dart';
+import 'package:easycook_flutter/utils/constants.dart';
+import 'package:easycook_flutter/utils/preferences.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,34 +25,26 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  String imageSelect = "Imagen no seleccionada";
-  FilePickerResult? result;
-  PlatformFile? file;
-  final _imagePicker = ImagePicker();
-
-  String date = "";
-  DateTime selectedDate = DateTime.now();
-
   late AuthRepository authRepository;
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController nombre = TextEditingController();
-  TextEditingController apellidos = TextEditingController();
-  TextEditingController nick = TextEditingController();
-  TextEditingController ciudad = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController repetirPassword = TextEditingController();
 
-  late Future<SharedPreferences> _prefs;
-  final String uploadUrl = 'http://10.0.2.2:8080/auth/register';
-  String pathAvatar = "";
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController nombreController = TextEditingController();
+  TextEditingController apellidosController = TextEditingController();
+  TextEditingController nickController = TextEditingController();
+  TextEditingController ciudadController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController repetirPasswordController = TextEditingController();
 
   @override
   void initState() {
-    authRepository = AuthRepositoryImpl();
-    _prefs = SharedPreferences.getInstance();
-
     super.initState();
+    authRepository = AuthRepositoryImpl();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -67,57 +62,57 @@ class _RegisterState extends State<Register> {
               return RegisterBloc(authRepository);
             },
           ),
+          BlocProvider(
+            create: (context) {
+              return FondoimagenBloc();
+            },
+          ),
+          BlocProvider(
+            create: (context) {
+              return RegisterBloc(authRepository);
+            },
+          )
         ],
         child: _createBody(context),
       ),
     );
   }
 
-  _createBody(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/fondoUserYRegister.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: BlocConsumer<RegisterBloc, RegisterState>(
+  Widget _createBody(BuildContext context) {
+    return Container(
+      margin: MediaQuery.of(context).padding,
+      child: Center(
+        child: Padding(
+            padding: const EdgeInsets.all(CustomStyles.bodyPadding),
+            child: BlocConsumer<RegisterBloc, RegisterState>(
               listenWhen: (context, state) {
-            return state is RegisterSuccessState || state is LoginErrorState;
-          }, listener: (context, state) async {
-            if (state is RegisterSuccessState) {
-              _registerSuccess(context, state.registerResponse);
-            } else if (state is LoginErrorState) {
-              _showSnackbar(context, state.message);
-            }
-          }, buildWhen: (context, state) {
-            return state is RegisterInitial || state is RegisterLoading;
-          }, builder: (ctx, state) {
-            if (state is RegisterInitial) {
-              return _register(ctx);
-            } else if (state is RegisterLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return _register(ctx);
-            }
-          })),
+                return state is RegisterSuccessState || state is RegisterState;
+              },
+              listener: (context, state) {
+                if (state is RegisterSuccessState) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Login()));
+                } else if (state is RegisterErrorState) {
+                  _showSnackbar(context, state.message);
+                }
+              },
+              buildWhen: (context, state) {
+                return state is RegisterInitial || state is RegisterLoading;
+              },
+              builder: (context, state) {
+                if (state is RegisterInitial) {
+                  return _register(context);
+                } else if (state is RegisterLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return _register(context);
+                }
+              },
+            )),
+      ),
     );
-  }
-
-  Future<void> _registerSuccess(
-      BuildContext context, RegisterResponse late) async {
-    _prefs.then((SharedPreferences prefs) {
-      prefs.setString('token', late.email);
-      prefs.setString('id', late.id);
-      prefs.setString('avatar', late.avatar);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Login()),
-      );
-    });
   }
 
   void _showSnackbar(BuildContext context, String message) {
@@ -129,271 +124,263 @@ class _RegisterState extends State<Register> {
 
   _register(BuildContext context) {
     return SingleChildScrollView(
-      child: SafeArea(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-              margin: const EdgeInsets.only(top: 10),
-              child: const Text(
-                'EasyCook',
-                style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(255, 255, 255, 1)),
-                textAlign: TextAlign.center,
-              )),
-          Container(
-              margin: const EdgeInsets.only(top: 0, bottom: 20),
-              child: const Text(
-                'Registrate para ver las recetas.',
-                style: TextStyle(
-                    fontSize: 20, color: Color.fromRGBO(255, 255, 255, 1)),
-                textAlign: TextAlign.center,
-              )),
-          Container(
-            margin: EdgeInsets.only(left: 30, right: 30, bottom: 5),
-            height: 498,
-            child: Container(
-              color: Color.fromRGBO(255, 255, 255, 1),
-              child: ListView(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 300,
-                            height: 40,
-                            margin: const EdgeInsets.only(top: 20),
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Nombre',
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: 300,
-                            height: 40,
-                            margin: const EdgeInsets.only(top: 20),
-                            color: Colors.white,
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Apellidos',
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: 300,
-                            height: 40,
-                            margin: const EdgeInsets.only(top: 20),
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Usuario',
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: 300,
-                            height: 40,
-                            margin: const EdgeInsets.only(top: 20),
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Ciudad/Pueblo',
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: 300,
-                            height: 40,
-                            margin: const EdgeInsets.only(top: 20),
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                hintText: 'Email',
-                              ),
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please enter @';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: 300,
-                            height: 40,
-                            margin: const EdgeInsets.only(top: 20),
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                fillColor: Colors.white,
-                                hintText: 'Contraseña',
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: 300,
-                            height: 40,
-                            margin: EdgeInsets.only(top: 20, bottom: 15),
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            child: TextFormField(
-                              decoration: const InputDecoration(
-                                fillColor: Colors.white,
-                                hintText: 'Confirmar contraseña',
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              BlocConsumer<ImageBloc, ImageState>(
-                                listenWhen: (context, state) {
-                                  return state is ImageSelectedSuccessState;
-                                },
-                                listener: (context, state) {},
-                                buildWhen: (context, state) {
-                                  return state is ImageState ||
-                                      state is ImageSelectedSuccessState;
-                                },
-                                builder: (context, state) {
-                                  if (state is ImageSelectedSuccessState) {
-                                    pathAvatar = state.pickedFile.path;
-                                    print('PATH ${state.pickedFile.path}');
-                                    return Column(children: [
-                                      Image.file(
-                                        File(state.pickedFile.path),
-                                        height: 50,
-                                      ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            primary: Colors.red),
-                                        onPressed: () async {
-                                          SharedPreferences prefs =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          prefs.setString('avatar', pathAvatar);
-                                        },
-                                        child: const Text('avatar'),
-                                      )
-                                    ]);
-                                  }
-                                  return Center(
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              primary: Color.fromRGBO(
-                                                  200, 200, 200, 1)),
-                                          onPressed: () {
-                                            BlocProvider.of<ImageBloc>(context)
-                                                .add(const SelectImageEvent(
-                                                    ImageSource.gallery));
-                                          },
-                                          child: const Text(
-                                            'avatar',
-                                            style: TextStyle(
-                                                color:
-                                                    Color.fromRGBO(0, 0, 0, 1)),
-                                          )));
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0)),
-                          elevation: 5,
-                          primary: Color.fromRGBO(27, 125, 255, 1),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            final registerDto = RegisterDto(
-                                nombre: nombre.text,
-                                apellidos: apellidos.text,
-                                nick: nick.text,
-                                ciudad: ciudad.text,
-                                email: email.text,
-                                password: password.text,
-                                repetirPassword: repetirPassword.text);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
-                            );
-                          }
-                        },
-                        child: const Text('Registrar'),
-                      ),
-                    ),
-                  ]),
-            ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            'MiarmaApp',
+            style: CustomStyles.loginTitleText,
           ),
           Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: const EdgeInsets.symmetric(vertical: 10.0),
             child: Text(
-              '¿Tienes cuenta ya?',
-              style: TextStyle(
-                  color: Color.fromRGBO(255, 255, 255, 1), fontSize: 20),
+              'Regístrate para ver las fotos y vídeos de tus amigos',
+              style: CustomStyles.registerSubText,
+              textAlign: TextAlign.center,
             ),
           ),
           Container(
-            height: 80,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/Login');
-              },
-              child: Text(
-                'Logueate Aquí',
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromRGBO(0, 131, 255, 1)),
+            margin: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Stack(alignment: AlignmentDirectional.center, children: [
+              const Divider(
+                color: CustomStyles.secondaryTextColor,
+                thickness: 1.0,
+              ),
+              Container(
+                width: 50.0,
+                color: Colors.white,
+                child: Text(
+                  'O',
+                  style: CustomStyles.secondaryText,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ]),
+          ),
+          SizedBox(
+            height: 700,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  BlocConsumer<ImageBloc, ImageState>(
+                    listenWhen: (context, state) {
+                      return state is ImageSelectedSuccessState;
+                    },
+                    listener: (context, state) {},
+                    buildWhen: (context, state) {
+                      return state is ImageInitial ||
+                          state is ImageSelectedSuccessState;
+                    },
+                    builder: (context, state) {
+                      if (state is ImageSelectedSuccessState) {
+                        print('PATH ${state.pickedFile.path}');
+                        return Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.file(
+                                File(state.pickedFile.path),
+                                width: 150,
+                                height: 150,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  PreferenceUtils.setString(
+                                      Constants.SHARED_AVATAR_IMAGE_PATH,
+                                      state.pickedFile.path);
+                                },
+                                child: const Text('Subir imagen'))
+                          ],
+                        );
+                      }
+                      return Center(
+                        child: InkWell(
+                          onTap: () {
+                            BlocProvider.of<ImageBloc>(context).add(
+                                const SelectImageEvent(ImageSource.gallery));
+                          },
+                          child: Image.asset(
+                            'assets/images/avatarPlantilla.png',
+                            width: 150,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  TextFormField(
+                    controller: nombreController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8.0),
+                        hintText: 'Nombre',
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 5.0))),
+                    onSaved: (String? value) {},
+                    validator: (String? value) {
+                      return (value == null || value.isEmpty)
+                          ? 'You need to write your name'
+                          : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: apellidosController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8.0),
+                        hintText: 'Apellidos',
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 5.0))),
+                    onSaved: (String? value) {},
+                    validator: (String? value) {
+                      return (value == null || value.isEmpty)
+                          ? 'You need to write your last name'
+                          : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: nickController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8.0),
+                        hintText: 'Nick',
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 5.0))),
+                    onSaved: (String? value) {},
+                    validator: (String? value) {
+                      return (value == null || value.isEmpty)
+                          ? 'You need to write your nick'
+                          : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: ciudadController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8.0),
+                        hintText: 'Ciudad/Pueblo',
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 5.0))),
+                    onSaved: (String? value) {},
+                    validator: (String? value) {
+                      return (value == null || value.isEmpty)
+                          ? 'You need to write your nick'
+                          : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8.0),
+                        hintText: 'Email',
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 5.0))),
+                    onSaved: (String? value) {},
+                    validator: (String? value) {
+                      return (value == null || !value.contains('@'))
+                          ? 'Email not valid'
+                          : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: passwordController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8.0),
+                        hintText: 'Contraseña',
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 5.0))),
+                    onSaved: (String? value) {},
+                    validator: (String? value) {
+                      return (value == null || value.isEmpty)
+                          ? 'You need to write your password'
+                          : null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: repetirPasswordController,
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.all(8.0),
+                        hintText: 'Repita su contraseña',
+                        border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 5.0))),
+                    onSaved: (String? value) {},
+                    validator: (String? value) {
+                      return (value == null || value.isEmpty)
+                          ? 'You need to write again your password'
+                          : null;
+                    },
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        final registerDto = RegisterDto(
+                            nombre: nombreController.text,
+                            apellidos: apellidosController.text,
+                            nick: nickController.text,
+                            ciudad: ciudadController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                            repetirPassword: repetirPasswordController.text);
+                        BlocProvider.of<RegisterBloc>(context)
+                            .add(DoRegisterEvent(
+                          registerDto,
+                          PreferenceUtils.getString(
+                              Constants.SHARED_AVATAR_IMAGE_PATH)!,
+                        ));
+                      }
+                    },
+                    child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 15),
+                        decoration: BoxDecoration(
+                            color: CustomStyles.loginButtonColor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text(
+                          'Registrarse'.toUpperCase(),
+                          style: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        )),
+                  )
+                ],
               ),
             ),
+          ),
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Text(
+              'Al registarte, aceptas nuestros Términos, Política de Datos y Política de Cookies.',
+              style: CustomStyles.secondaryText,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '¿Ya tienes una cuenta?',
+                style: CustomStyles.secondaryText,
+              ),
+              InkWell(
+                onTap: () => Navigator.pushNamed(context, '/login'),
+                child: Container(
+                  margin: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Inicia sesión',
+                    style: CustomStyles.secondaryLinkText,
+                  ),
+                ),
+              )
+            ],
           )
-        ]),
+        ],
       ),
     );
   }

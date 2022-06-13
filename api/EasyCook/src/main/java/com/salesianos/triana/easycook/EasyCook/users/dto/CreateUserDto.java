@@ -31,7 +31,7 @@ public class CreateUserDto {
 
     private String avatar;
 
-
+    private String fondo;
 
 
 }

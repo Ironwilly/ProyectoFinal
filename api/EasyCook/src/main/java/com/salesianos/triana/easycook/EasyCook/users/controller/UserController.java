@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @PutMapping("profile/me")
-    public ResponseEntity<Optional<GetUserDto>> editarPerfil (@AuthenticationPrincipal User user,@RequestPart("user") CreateUserDto createUserDto,@RequestPart("avatar")MultipartFile file1,@RequestPart("fondo")MultipartFile file2) throws  ListNotFoundException {
+    public ResponseEntity<Optional<GetUserDto>> editarPerfil (@AuthenticationPrincipal User user,@RequestPart("user") CreateUserDto createUserDto,@RequestPart("avatar")MultipartFile file1) throws  ListNotFoundException {
         return ResponseEntity.ok(userService.editUser(createUserDto,user,file1));
     }
 }

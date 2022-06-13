@@ -75,6 +75,7 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
 
 
 
+
             String uri1 = ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/avatar/")
                     .path(name1)
@@ -123,13 +124,6 @@ public class UserServiceImpl extends BaseService<User, UUID, UserRepository> imp
                     .path("/avatar/")
                     .path(original)
                     .toUriString();
-
-
-
-
-
-
-
 
 
 

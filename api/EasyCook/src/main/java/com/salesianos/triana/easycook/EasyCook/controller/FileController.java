@@ -26,7 +26,7 @@ public class FileController {
     private final StorageService storageService;
 
     @PostMapping("/upload")
-    public ResponseEntity<?> upload(@RequestPart("avatar") MultipartFile file1,@RequestPart("receta")MultipartFile file3) throws IOException {
+    public ResponseEntity<?> upload(@RequestPart("avatar") MultipartFile file1,@RequestPart("fondo") MultipartFile file2,@RequestPart("receta")MultipartFile file3) throws IOException {
 
 
         String name1 = storageService.store(file1);
@@ -36,7 +36,12 @@ public class FileController {
         OutputStream outputStream = Files.newOutputStream(storageService.load(name1));
         ImageIO.write(escaledImage,extension,outputStream);
 
-
+        String name2 = storageService.store(file2);
+        String extension2 = StringUtils.getFilenameExtension(name2);
+        BufferedImage originalImage2 = ImageIO.read(file1.getInputStream());
+        BufferedImage escaledImage2 = storageService.simpleResizer(originalImage2, 128);
+        OutputStream outputStream2 = Files.newOutputStream(storageService.load(name2));
+        ImageIO.write(escaledImage2,extension2,outputStream2);
 
         String name3 = storageService.store(file3);
         String extension3 = StringUtils.getFilenameExtension(name3);
@@ -52,7 +57,10 @@ public class FileController {
                 .path(name1)
                 .toUriString();
 
-
+        String uri2 = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/fondo/")
+                .path(name2)
+                .toUriString();
         String uri3 = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/recetas/")
                 .path(name3)
@@ -60,11 +68,15 @@ public class FileController {
 
         FileResponse response = FileResponse.builder()
                 .name(name1)
+                .name(name2)
                 .size(file1.getSize())
+                .size(file2.getSize())
                 .size(file3.getSize())
                 .type(file1.getContentType())
+                .type(file2.getContentType())
                 .type(file3.getContentType())
                 .uri(uri1)
+                .uri(uri2)
                 .uri(uri3)
                 .build();
 
@@ -84,7 +96,17 @@ public class FileController {
 
     }
 
+    @GetMapping("/fondo/{filename:.+}")
+    public ResponseEntity<Resource> getFile2(@PathVariable String filename2) {
+        MediaTypeUrlResource resource = (MediaTypeUrlResource) storageService.loadAsResource(filename2);
 
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("content-type", resource.getType())
+                .body(resource);
+
+
+    }
 
     @GetMapping("/receta/{filename:.+}")
     public ResponseEntity<Resource> getFile3(@PathVariable String filename3) {

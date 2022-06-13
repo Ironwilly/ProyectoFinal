@@ -27,14 +27,14 @@ class RegisterDto {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['nombre'] = this.nombre;
-    data['apellidos'] = this.apellidos;
-    data['nick'] = this.nick;
-    data['ciudad'] = this.ciudad;
-    data['email'] = this.email;
-    data['password'] = this.password;
-    data['repetirPassword'] = this.repetirPassword;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['nombre'] = nombre;
+    data['apellidos'] = apellidos;
+    data['nick'] = nick;
+    data['ciudad'] = ciudad;
+    data['email'] = email;
+    data['password'] = password;
+    data['repetirPassword'] = repetirPassword;
     return data;
   }
 }

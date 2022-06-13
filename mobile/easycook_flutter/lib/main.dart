@@ -17,10 +17,12 @@ import 'package:easycook_flutter/ui/screens/recetas.dart';
 import 'package:easycook_flutter/ui/screens/register.dart';
 import 'package:easycook_flutter/ui/screens/usuario_categorias.dart';
 import 'package:easycook_flutter/ui/screens/usuario_recientes.dart';
+import 'package:easycook_flutter/utils/preferences.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
+  PreferenceUtils.init();
 }
 
 class MyApp extends StatelessWidget {

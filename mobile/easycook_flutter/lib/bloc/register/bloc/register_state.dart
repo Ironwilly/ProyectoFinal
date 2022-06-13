@@ -20,10 +20,10 @@ class RegisterSuccessState extends RegisterState {
   List<Object> get props => [registerResponse];
 }
 
-class LoginErrorState extends RegisterState {
+class RegisterErrorState extends RegisterState {
   final String message;
 
-  const LoginErrorState(this.message);
+  const RegisterErrorState(this.message);
 
   @override
   List<Object> get props => [message];

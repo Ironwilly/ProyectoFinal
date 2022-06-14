@@ -10,7 +10,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository authRepository;
 
-  LoginBloc(this.authRepository) : super(LoginInitial()) {
+  LoginBloc(this.authRepository) : super(LoginInitialState()) {
     on<DoLoginEvent>(_doLoginEvent);
   }
 

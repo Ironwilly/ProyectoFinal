@@ -1,4 +1,17 @@
 part of 'recetas_bloc.dart';
 
-@immutable
-abstract class RecetasEvent {}
+abstract class RecetasEvent extends Equatable {
+  const RecetasEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class FetchReceta extends RecetasEvent {
+  final String type;
+
+  const FetchReceta(this.type);
+
+  @override
+  List<Object> get props => [];
+}

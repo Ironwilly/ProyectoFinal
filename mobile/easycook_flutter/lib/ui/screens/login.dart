@@ -4,6 +4,7 @@ import 'package:easycook_flutter/models/login_dto.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository.dart';
 import 'package:easycook_flutter/repository/auth_repository/auth_repository_imp.dart';
 import 'package:easycook_flutter/styles.dart';
+import 'package:easycook_flutter/ui/screens/menu.dart';
 import 'package:easycook_flutter/ui/screens/recetas.dart';
 import 'package:easycook_flutter/utils/constants.dart';
 import 'package:easycook_flutter/utils/preferences.dart';
@@ -69,7 +70,7 @@ class _LoginState extends State<Login> {
                   PreferenceUtils.setString(
                       Constants.SHARED_BEARER_TOKEN, state.loginResponse.token);
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Recetas()));
+                      MaterialPageRoute(builder: (context) => const Menu()));
                 } else if (state is LoginErrorState) {
                   _showSnackbar(context, state.message);
                 }

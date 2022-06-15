@@ -1,4 +1,4 @@
-#Tue Jun 14 03:27:35 CEST 2022
+#Wed Jun 15 01:43:26 CEST 2022
 base.0=D\:\\2 DAM\\ProyectoFinal\\mobile\\easycook_flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

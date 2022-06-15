@@ -1,8 +1,7 @@
 import 'package:easycook_flutter/models/receta_dto.dart';
-import 'package:easycook_flutter/ui/screens/receta_item.dart';
-import 'package:easycook_flutter/ui/screens/recetas.dart';
+import 'package:easycook_flutter/models/receta_model.dart';
 
 abstract class RecetaRepository {
-  Future<List<Recetas>> fetchRecetas(String type);
-  Future<Recetas> createReceta(RecetaDto recetaDto, String imagePath);
+  Future<List<Receta>> fetchRecetas(String type);
+  Future<Receta> createReceta(RecetaDto recetaDto, String imagePath);
 }

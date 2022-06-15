@@ -12,12 +12,12 @@ class AgregarRecetaInitial extends AgregarRecetaState {}
 class AgregarRecetaLoadingState extends AgregarRecetaState {}
 
 class AgregarRecetaSuccessState extends AgregarRecetaState {
-  final Recetas recetas;
+  final Receta receta;
 
-  const AgregarRecetaSuccessState(this.recetas);
+  const AgregarRecetaSuccessState(this.receta);
 
   @override
-  List<Object> get props => [recetas];
+  List<Object> get props => [receta];
 }
 
 class RecetaCreateError extends AgregarRecetaState {

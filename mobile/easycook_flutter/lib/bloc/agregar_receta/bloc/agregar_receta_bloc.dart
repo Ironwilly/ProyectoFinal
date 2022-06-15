@@ -13,11 +13,11 @@ class AgregarRecetaBloc extends Bloc<AgregarRecetaEvent, AgregarRecetaState> {
   final RecetaRepository recetaRepository;
 
   AgregarRecetaBloc(this.recetaRepository) : super(AgregarRecetaInitial()) {
-    on<AgregarReceta>(_agregarRecetaEvent);
+    on<CrearReceta>(_agregarRecetaEvent);
   }
 
   void _agregarRecetaEvent(
-      AgregarReceta event, Emitter<AgregarRecetaState> emit) async {
+      CrearReceta event, Emitter<AgregarRecetaState> emit) async {
     try {
       final recetaResponse =
           await recetaRepository.createReceta(event.recetaDto, event.imagePath);

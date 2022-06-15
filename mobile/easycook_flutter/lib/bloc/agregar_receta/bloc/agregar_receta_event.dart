@@ -7,11 +7,11 @@ abstract class AgregarRecetaEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class AgregarReceta extends AgregarRecetaEvent {
+class CrearReceta extends AgregarRecetaEvent {
   final RecetaDto recetaDto;
   final String imagePath;
 
-  const AgregarReceta(this.recetaDto, this.imagePath);
+  const CrearReceta(this.recetaDto, this.imagePath);
 
   @override
   List<Object> get props => [];

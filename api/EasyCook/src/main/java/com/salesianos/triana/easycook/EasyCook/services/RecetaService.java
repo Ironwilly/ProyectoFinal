@@ -23,6 +23,7 @@ public interface RecetaService  {
     CreateRecetaDto saveReceta(CreateRecetaDto createRecetaDto, MultipartFile file3, User user);
     Optional<GetRecetaDto> editReceta(Long id, CreateRecetaDto createRecetaDto, MultipartFile file3, User user) throws ListNotFoundException;
     void removeRecetaById(Long id) throws SingleEntityNotFoundException;
+    List<Receta> findAll();
     List<Receta> findRecetaByCategoriaOtros(RecetaCategoria recetaCategoria);
     List<Receta> findRecetaByCategoriaDulces(RecetaCategoria recetaCategoria);
     List<Receta> findRecetaByCategoriaPastas(RecetaCategoria recetaCategoria);

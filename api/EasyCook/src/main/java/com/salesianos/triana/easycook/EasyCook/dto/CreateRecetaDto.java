@@ -23,8 +23,6 @@ public class CreateRecetaDto {
 
     private String tiempoCocinar;
 
-    private String recetaCategoria;
-
     private String fotoReceta;
 
 

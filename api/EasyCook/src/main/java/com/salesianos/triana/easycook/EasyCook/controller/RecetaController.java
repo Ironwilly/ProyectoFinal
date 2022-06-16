@@ -3,6 +3,7 @@ package com.salesianos.triana.easycook.EasyCook.controller;
 import com.salesianos.triana.easycook.EasyCook.dto.CreateRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.GetRecetaDto;
 import com.salesianos.triana.easycook.EasyCook.dto.RecetaDtoConverter;
+import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListEntityNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.ListNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.errors.exceptions.SingleEntityNotFoundException;
 import com.salesianos.triana.easycook.EasyCook.models.Receta;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -55,13 +57,21 @@ public class RecetaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Optional<GetRecetaDto>> edit(@PathVariable Long id, @RequestPart("receta") CreateRecetaDto createRecetaDto, @RequestPart("recetaImagen") MultipartFile file3,
-                                             @AuthenticationPrincipal User user) throws IOException, ListNotFoundException {
+                                             @AuthenticationPrincipal User user) throws  ListNotFoundException {
  return ResponseEntity.status(HttpStatus.CREATED).body(recetaService.editReceta(id,createRecetaDto,file3,user));
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> listadoCompleto() {
-        return ResponseEntity.ok(recetaService.findAll());
+    public ResponseEntity<List<GetRecetaDto>> findAllRecetas(){
+
+        if (recetaService.findAll().isEmpty()) {
+            throw new ListEntityNotFoundException(Receta.class);
+        } else {
+            List<GetRecetaDto> list = recetaService.findAll().stream()
+                    .map(recetaDtoConverter::getRecetaToRecetaDto)
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok().body(list);
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -76,7 +86,7 @@ public class RecetaController {
 
         Optional<Receta> receta = recetaService.findById(id);
         if(receta.isPresent()){
-            return ResponseEntity.ok().body(recetaDtoConverter.getRecetaToRecetaDto(receta.get(), user));
+            return ResponseEntity.ok().body(recetaDtoConverter.getRecetaToRecetaDto(receta.get()));
         }else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }

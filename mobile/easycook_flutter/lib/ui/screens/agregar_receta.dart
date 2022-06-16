@@ -1,18 +1,22 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:easycook_flutter/bloc/agregar_receta/bloc/agregar_receta_bloc.dart';
 import 'package:easycook_flutter/bloc/image_pick_block/image_pick_bloc.dart';
+import 'package:easycook_flutter/bloc/recetas/bloc/recetas_bloc.dart';
 import 'package:easycook_flutter/models/receta_dto.dart';
+import 'package:easycook_flutter/models/receta_model.dart';
 import 'package:easycook_flutter/repository/receta/receta_repository.dart';
 import 'package:easycook_flutter/repository/receta/receta_repository_imp.dart';
 import 'package:easycook_flutter/styles.dart';
 import 'package:easycook_flutter/ui/screens/menu.dart';
+import 'package:easycook_flutter/ui/screens/perfil.dart';
+import 'package:easycook_flutter/ui/screens/recetas.dart';
 import 'package:easycook_flutter/utils/constants.dart';
 import 'package:easycook_flutter/utils/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 typedef OnPickImageCallback = void Function(
     double? maxWidth, double? maxHeight, int? quality);
@@ -26,21 +30,17 @@ class AgregarReceta extends StatefulWidget {
 
 class _AgregarReceta extends State<AgregarReceta> {
   late RecetaRepository recetaRepository;
-
+  late Future<SharedPreferences> _prefs;
   final _formKey = GlobalKey<FormState>();
   TextEditingController ingredientesController = TextEditingController();
   TextEditingController preparacionController = TextEditingController();
   TextEditingController tiempoCocinarController = TextEditingController();
-  TextEditingController recetaCategoriaController = TextEditingController();
-
-  String? dropdownvalue = 'DULCES';
-
-  var visibilidad = ['DULCES', 'PASTAS', 'OTROS'];
 
   @override
   void initState() {
     super.initState();
     recetaRepository = RecetaRepositoryImpl();
+    _prefs = SharedPreferences.getInstance();
   }
 
   @override
@@ -53,7 +53,7 @@ class _AgregarReceta extends State<AgregarReceta> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) {
-          return AgregarRecetaBloc(recetaRepository);
+          return RecetasBloc(recetaRepository);
         }),
         BlocProvider(create: (context) {
           return ImagePickBlocBloc();
@@ -71,24 +71,21 @@ class _AgregarReceta extends State<AgregarReceta> {
         child: Center(
       child: Padding(
           padding: const EdgeInsets.all(CustomStyles.bodyPadding),
-          child: BlocConsumer<AgregarRecetaBloc, AgregarRecetaState>(
+          child: BlocConsumer<RecetasBloc, RecetasState>(
               listenWhen: (context, state) {
-            return state is AgregarRecetaSuccessState ||
-                state is RecetaCreateError;
+            return state is RecetasSuccessState || state is RecetasErrorState;
           }, listener: (context, state) {
-            if (state is AgregarRecetaSuccessState) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Menu()));
-            } else if (state is RecetaCreateError) {
+            if (state is RecetasSuccessState) {
+              _loginSuccess(context, state.loginResponse);
+            } else if (state is RecetasErrorState) {
               _showSnackbar(context, state.message);
             }
           }, buildWhen: (context, state) {
-            return state is AgregarRecetaInitial ||
-                state is AgregarRecetaLoadingState;
+            return state is RecetasInitial || state is RecetasLoading;
           }, builder: (context, state) {
-            if (state is AgregarRecetaInitial) {
+            if (state is RecetasInitial) {
               return _buildForm(context);
-            } else if (state is AgregarRecetaLoadingState) {
+            } else if (state is RecetasLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -97,6 +94,15 @@ class _AgregarReceta extends State<AgregarReceta> {
             }
           })),
     ));
+  }
+
+  Future<void> _loginSuccess(BuildContext context, Receta late) async {
+    _prefs.then((SharedPreferences prefs) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Menu()),
+      );
+    });
   }
 
   void _showSnackbar(BuildContext context, String message) {
@@ -240,52 +246,20 @@ class _AgregarReceta extends State<AgregarReceta> {
                                 : null;
                           },
                         ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 5, horizontal: 11),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            border: Border.all(color: Colors.grey[400]!),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(4.0)),
-                          ),
-                          child: DropdownButton(
-                            isExpanded: true,
-                            value: dropdownvalue,
-                            underline: Container(color: Colors.grey[200]),
-                            dropdownColor: Colors.grey[200],
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownvalue = newValue!;
-                              });
-                            },
-                            items: visibilidad
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                            style: TextStyle(
-                                color: Colors.grey[700], fontSize: 16),
-                          ),
-                        ),
                       ],
                     ),
                     GestureDetector(
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
                           final recetaDto = RecetaDto(
-                              ingredientes:
-                                  ingredientesController.text.toString(),
-                              preparacion:
-                                  preparacionController.text.toString(),
-                              tiempoCocinar:
-                                  tiempoCocinarController.text.toString(),
-                              recetaCategoria:
-                                  recetaCategoriaController.text.toString());
-                          BlocProvider.of<AgregarRecetaBloc>(context).add(
-                              CrearReceta(
+                            ingredientes:
+                                ingredientesController.text.toString(),
+                            preparacion: preparacionController.text.toString(),
+                            tiempoCocinar:
+                                tiempoCocinarController.text.toString(),
+                          );
+                          BlocProvider.of<RecetasBloc>(context).add(
+                              CreateRecetaEvent(
                                   recetaDto,
                                   PreferenceUtils.getString(
                                       Constants.SHARED_RECETA_IMAGE_PATH)!));

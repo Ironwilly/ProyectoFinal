@@ -7,19 +7,27 @@ import 'package:easycook_flutter/repository/receta/receta_repository.dart';
 
 import 'package:easycook_flutter/utils/constants.dart';
 import 'package:easycook_flutter/utils/preferences.dart';
+import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 
 class RecetaRepositoryImpl extends RecetaRepository {
+  final Client _client = Client();
+
   @override
   Future<List<Receta>> fetchRecetas(String type) async {
-    final response = await http
-        .get(Uri.parse('http://10.0.2.2:8080/receta/$type'), headers: {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
       'Authorization':
           'Bearer ${PreferenceUtils.getString(Constants.SHARED_BEARER_TOKEN)}'
-    });
+    };
+
+    final response = await _client.get(
+      Uri.parse('http://10.0.2.2:8080/receta/'),
+      headers: headers,
+    );
     if (response.statusCode == 200) {
-      return List.from(json.decode(response.body))
-          .map((e) => Receta.fromJson(e))
+      return (json.decode(response.body) as List)
+          .map((i) => Receta.fromJson(i))
           .toList();
     } else if (response.statusCode == 404) {
       return List.empty(growable: false);
@@ -32,16 +40,17 @@ class RecetaRepositoryImpl extends RecetaRepository {
   @override
   Future<Receta> createReceta(RecetaDto recetaDto, String imagePath) async {
     Map<String, String> headers = {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Charset': 'utf-8',
       'Authorization':
-          'Bearer ${PreferenceUtils.getString(Constants.SHARED_BEARER_TOKEN)}'
+          'Bearer ${PreferenceUtils.getString(Constants.SHARED_BEARER_TOKEN)}',
+      'Accept': 'application/json; charset=UTF-8'
     };
     var uri = Uri.parse('http://10.0.2.2:8080/receta/');
     var body = jsonEncode({
       'ingredientes': recetaDto.ingredientes,
       'preparacion': recetaDto.preparacion,
       'tiempoCocinar': recetaDto.tiempoCocinar,
-      'recetaCategoria': recetaDto.tiempoCocinar
     });
     var request = http.MultipartRequest('POST', uri)
       ..files.add(http.MultipartFile.fromString('receta', body,

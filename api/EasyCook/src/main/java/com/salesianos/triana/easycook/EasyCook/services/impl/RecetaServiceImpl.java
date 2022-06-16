@@ -68,24 +68,15 @@ public class RecetaServiceImpl extends BaseService<Receta,Long,RecetaRepository>
                 .ingredientes(createRecetaDto.getIngredientes())
                 .preparacion(createRecetaDto.getPreparacion())
                 .tiempoCocinar(createRecetaDto.getTiempoCocinar())
-                .recetaCategoria(RecetaCategoria.valueOf(createRecetaDto.getRecetaCategoria()))
                 .fotoReceta(uriScale)
-                .user(user)
+                .user(User.builder()
+                        .id(user.getId())
+                        .nick(user.getNick())
+                        .avatar(user.getAvatar())
+                        .ciudad(user.getCiudad())
+                        .build())
                 .build());
-        return recetaDtoConverter.convertRecetaToCreateRecetaDto(Receta.builder()
-
-                .ingredientes(receta.getIngredientes())
-                .preparacion(receta.getPreparacion())
-                .tiempoCocinar(receta.getTiempoCocinar())
-                .recetaCategoria(receta.getRecetaCategoria())
-                .fotoReceta(uriScale)
-                .user(user)
-                .build()
-
-
-
-
-        );
+        return recetaDtoConverter.convertRecetaToCreateRecetaDto(receta);
     }
 
     @Override
@@ -123,15 +114,14 @@ public class RecetaServiceImpl extends BaseService<Receta,Long,RecetaRepository>
                 newReceta.setIngredientes(createRecetaDto.getIngredientes());
                 newReceta.setPreparacion(createRecetaDto.getPreparacion());
                 newReceta.setTiempoCocinar(createRecetaDto.getTiempoCocinar());
-                newReceta.setRecetaCategoria(RecetaCategoria.valueOf(createRecetaDto.getRecetaCategoria()));
                 newReceta.setFotoReceta(uri3);
                 recetaRepository.save(newReceta);
-                return  recetaDtoConverter.getRecetaToRecetaDto(newReceta,user);
+                return  recetaDtoConverter.getRecetaToRecetaDto(newReceta);
 
 
 
 
-        });
+            });
         }else {
             throw new ListNotFoundException("No existe la receta que quieres editar");
         }
@@ -160,9 +150,14 @@ public class RecetaServiceImpl extends BaseService<Receta,Long,RecetaRepository>
             storageService.deleteFile(path.toString());
             //recetaRepository.deleteById(id);
             recetaRepository.deleteRecetaById(id);
-          }
+        }
     }
 
+
+    @Override
+    public List<Receta> findAll() {
+        return recetaRepository.findAll();
+    }
 
 
     @Override

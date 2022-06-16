@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget _buildForm(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        height: 750,
+        height: 950,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
               margin: const EdgeInsets.only(top: 10),

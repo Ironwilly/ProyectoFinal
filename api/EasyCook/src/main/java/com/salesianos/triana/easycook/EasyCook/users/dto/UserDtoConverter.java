@@ -30,8 +30,6 @@ public GetUserDto convertUserToUserDto(User user)   {
                 .nick(user.getNick())
                 .ciudad(user.getCiudad())
                 .email(user.getEmail())
-                .password(user.getPassword())
-                .repetirPassword(user.getRepetirPassword())
                 .avatar(user.getAvatar())
                 .build();
     }

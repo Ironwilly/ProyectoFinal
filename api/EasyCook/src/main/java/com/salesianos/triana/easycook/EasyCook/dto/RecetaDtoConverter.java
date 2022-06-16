@@ -27,14 +27,13 @@ public class RecetaDtoConverter {
                 .preparacion(r.getPreparacion())
                 .tiempoCocinar(r.getTiempoCocinar())
                 .fotoReceta(r.getFotoReceta())
-                .recetaCategoria(RecetaCategoria.valueOf(r.getRecetaCategoria().toString()).toString())
-                .build();
+                 .build();
 
 
 
     }
 
-    public GetRecetaDto getRecetaToRecetaDto(Receta r, User user){
+    public GetRecetaDto getRecetaToRecetaDto(Receta r){
 
         return GetRecetaDto.builder()
 
@@ -43,10 +42,11 @@ public class RecetaDtoConverter {
                 .preparacion(r.getPreparacion())
                 .tiempoCocinar(r.getTiempoCocinar())
                 .fotoReceta(r.getFotoReceta())
-                .nick(r.getUser().getNick())
-                .user(r.getUser())
-                .recetaCategoria(r.getRecetaCategoria())
-                .build();
+                .nickUsuario(r.getUser().getNick())
+                .nombreUsuario(r.getUser().getNombre())
+                .ciudadUsuario(r.getUser().getCiudad())
+                .avatarUsuario(r.getUser().getAvatar())
+               .build();
     }
 
     public Receta createRecetaDtoToReceta(CreateRecetaDto createRecetaDto) throws IOException{
@@ -54,12 +54,12 @@ public class RecetaDtoConverter {
 
 
         return Receta.builder()
+
                 .ingredientes(createRecetaDto.getIngredientes())
                 .preparacion(createRecetaDto.getPreparacion())
                 .tiempoCocinar(createRecetaDto.getTiempoCocinar())
                 .fotoReceta(createRecetaDto.getFotoReceta())
-                .recetaCategoria(RecetaCategoria.valueOf(createRecetaDto.getRecetaCategoria()))
-                .build();
+              .build();
 
 
 

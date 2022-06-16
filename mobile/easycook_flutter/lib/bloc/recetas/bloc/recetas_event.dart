@@ -13,7 +13,7 @@ class FetchReceta extends RecetasEvent {
   const FetchReceta(this.type);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [type];
 }
 
 class CreateRecetaEvent extends RecetasEvent {

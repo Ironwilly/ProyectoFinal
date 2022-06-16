@@ -21,9 +21,13 @@ public class GetRecetaDto {
 
     private String fotoReceta;
 
-    private String nick;
+    private String nickUsuario;
 
-    private User user;
+    private String nombreUsuario;
 
-    private RecetaCategoria recetaCategoria;
+    private String avatarUsuario;
+
+    private String ciudadUsuario;
+
+
 }

@@ -2,19 +2,17 @@ class RecetaDto {
   String? ingredientes;
   String? preparacion;
   String? tiempoCocinar;
-  String? recetaCategoria;
 
-  RecetaDto(
-      {this.ingredientes,
-      this.preparacion,
-      this.tiempoCocinar,
-      this.recetaCategoria});
+  RecetaDto({
+    this.ingredientes,
+    this.preparacion,
+    this.tiempoCocinar,
+  });
 
   RecetaDto.fromJson(Map<String, dynamic> json) {
     ingredientes = json['ingredientes'];
     preparacion = json['preparacion'];
     tiempoCocinar = json['tiempoCocinar'];
-    recetaCategoria = json['recetaCategoria'];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +20,6 @@ class RecetaDto {
     data['ingredientes'] = ingredientes;
     data['preparacion'] = preparacion;
     data['tiempoCocinar'] = tiempoCocinar;
-    data['recetaCategoria'] = recetaCategoria;
     return data;
   }
 }

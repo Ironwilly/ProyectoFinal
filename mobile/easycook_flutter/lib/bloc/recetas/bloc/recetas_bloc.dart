@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:easycook_flutter/bloc/agregar_receta/bloc/agregar_receta_bloc.dart';
 import 'package:easycook_flutter/models/receta_dto.dart';
 import 'package:easycook_flutter/models/receta_dto.dart';
 import 'package:easycook_flutter/models/receta_dto.dart';
@@ -16,11 +15,11 @@ class RecetasBloc extends Bloc<RecetasEvent, RecetasState> {
   final RecetaRepository recetaRepository;
 
   RecetasBloc(this.recetaRepository) : super(RecetasInitial()) {
-    on<FetchReceta>(_recetasFetched);
+    on<FetchReceta>(recetasFetched);
     on<CreateRecetaEvent>(_recetaCreated);
   }
 
-  void _recetasFetched(FetchReceta event, Emitter<RecetasState> emit) async {
+  void recetasFetched(FetchReceta event, Emitter<RecetasState> emit) async {
     try {
       final receta = await recetaRepository.fetchRecetas(event.type);
       emit(RecetasFetched(receta, event.type));
@@ -34,7 +33,7 @@ class RecetasBloc extends Bloc<RecetasEvent, RecetasState> {
     try {
       final receta =
           await recetaRepository.createReceta(event.recetaDto, event.imagePath);
-      emit(RecetaCreated(receta));
+      emit(RecetasSuccessState(receta));
       return;
     } on Exception catch (e) {
       emit(RecetaFetchError(e.toString()));

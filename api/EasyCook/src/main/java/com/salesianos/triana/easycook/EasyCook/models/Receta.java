@@ -22,14 +22,12 @@ public class Receta {
 
     private String ingredientes;
 
+    @Column(length = 1000)
     private String preparacion;
 
     private String tiempoCocinar;
 
     private String fotoReceta;
-
-    @Enumerated(EnumType.STRING)
-    private RecetaCategoria recetaCategoria;
 
     @ManyToOne
     private User user;

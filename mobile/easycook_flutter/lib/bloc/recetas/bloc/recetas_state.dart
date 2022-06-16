@@ -9,14 +9,34 @@ abstract class RecetasState extends Equatable {
 
 class RecetasInitial extends RecetasState {}
 
-class RecetasFetched extends RecetasState {
-  final List<Receta> receta;
-  final String type;
+class RecetasLoading extends RecetasState {}
 
-  const RecetasFetched(this.receta, this.type);
+class RecetasSuccessState extends RecetasState {
+  final Receta loginResponse;
+
+  const RecetasSuccessState(this.loginResponse);
 
   @override
-  List<Object> get props => [receta];
+  List<Object> get props => [loginResponse];
+}
+
+class RecetasErrorState extends RecetasState {
+  final String message;
+
+  const RecetasErrorState(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class RecetasFetched extends RecetasState {
+  final List<Receta> recetas;
+  final String type;
+
+  const RecetasFetched(this.recetas, this.type);
+
+  @override
+  List<Object> get props => [recetas];
 }
 
 class RecetaFetchError extends RecetasState {
@@ -25,13 +45,4 @@ class RecetaFetchError extends RecetasState {
 
   @override
   List<Object> get props => [message];
-}
-
-class RecetaCreated extends RecetasState {
-  final Receta response;
-
-  const RecetaCreated(this.response);
-
-  @override
-  List<Object> get props => [response];
 }
